@@ -36,6 +36,7 @@ const GiTiles = L.TileLayer.extend({
   },
 })
 
+const APP_SRC = document.currentScript?.src
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 
@@ -381,7 +382,9 @@ function buildLog() {
 }
 
 async function main() {
-  const res = await fetch('projects.json')
+  // The page asks for the data that matches its own script version, so a cached page never meets newer data.
+  const v = new URL(APP_SRC || 'app.js', location.href).searchParams.get('v') || ''
+  const res = await fetch(`projects.json?v=${v}`, { cache: 'no-cache' })
   stops = (await res.json()).sort((a, b) => a.date.localeCompare(b.date))
   buildMap()
   buildLog()

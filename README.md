@@ -35,6 +35,10 @@ Everything on the page comes from `projects.json`. Add an entry and push:
 - The first link is drawn as the gold button.
 - `gif` is the looping demo on the card: a `.gif`, or a silent `.mp4` that autoplays on loop. Leave it out and the card skips it.
 
+When you change `app.js`, `style.css` or `projects.json`, bump the `?v=` number on
+the two asset links in `index.html`, so visitors never mix an old cached script with
+new data.
+
 ## Running locally
 
 It's plain HTML, CSS and JavaScript with no build step. Serve the folder:
