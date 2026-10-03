@@ -242,7 +242,7 @@ function focusOn(i) {
   const card = document.getElementById('card')
   const docked = getComputedStyle(card).position === 'absolute'
   const shift = docked ? (card.offsetWidth + 16) / 2 : 0
-  const z = Math.max(map.getZoom(), FOCUS_ZOOM)
+  const z = Math.min(0, Math.max(map.getZoom(), FOCUS_ZOOM))
   const target = map.unproject(map.project(stops[i].ll, z).add([shift, 0]), z)
   map.flyTo(target, z, { duration: reduceMotion ? 0 : 0.9 })
 }
