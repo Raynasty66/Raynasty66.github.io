@@ -1,20 +1,40 @@
-// Projects charted on a hand-generated continent, in the Genshin Soundpact style.
+// Projects charted on Teyvat, on the same Kongying Tavern tiles as Genshin Soundpact.
 
-// map.webp is 4096x3072; a latlng here is just [x, y] in its pixels, with zoom 0 drawing it 1:1.
-const MAP_W = 4096
-const MAP_H = 3072
+// Kongying's projection: latlng is the game coordinate, projected pixel = (lat + 3568, lng + 6969).
+const MAP_CENTER = [3568, 6969]
+const MAP_SIZE = [30370, 26624]
+const TILES_OFFSET = [-17408, -10240]
 const FOCUS_ZOOM = -1.5
 const JOURNEY_MS = 11000
 const HOP_MS = 1100
+const TILE_RETRY_MS = 700
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 const CRS = L.Util.extend({}, L.CRS.Simple, {
   transformation: new L.Transformation(1, 0, 1, 0),
   projection: {
-    project: (ll) => new L.Point(ll.lat, ll.lng),
-    unproject: (p) => new L.LatLng(p.x, p.y),
+    project: (ll) => new L.Point(ll.lat + MAP_CENTER[0], ll.lng + MAP_CENTER[1]),
+    unproject: (p) => new L.LatLng(p.x - MAP_CENTER[0], p.y - MAP_CENTER[1]),
   },
-  bounds: L.bounds(L.point(0, 0), L.point(MAP_W, MAP_H)),
+  bounds: L.bounds(L.point(0, 0), L.point(MAP_SIZE[0], MAP_SIZE[1])),
+})
+
+// Server z is leaflet zoom + 13; a refused tile gets one late retry so the overview never keeps a hole.
+const GiTiles = L.TileLayer.extend({
+  getTileUrl(c) {
+    return `https://assets.yuanshen.site/tiles_twt672/${c.z + 13}/${c.x}_${c.y}.png`
+  },
+  createTile(coords, done) {
+    const tile = L.TileLayer.prototype.createTile.call(this, coords, done)
+    let retried = false
+    tile.addEventListener('error', () => {
+      if (retried || !this._map) return
+      retried = true
+      const url = this.getTileUrl(coords)
+      setTimeout(() => { if (this._map) tile.src = url + '?r=1' }, TILE_RETRY_MS)
+    })
+    return tile
+  },
 })
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -56,25 +76,42 @@ function markerHtml(p, i) {
 function buildMap() {
   map = L.map('map', {
     crs: CRS,
-    minZoom: -4,
-    maxZoom: 1.5,
+    minZoom: -6,
+    maxZoom: 2,
     zoomSnap: 0.25,
     zoomControl: false,
     keyboard: false,
     wheelPxPerZoomLevel: 80,
   })
   map.attributionControl.setPrefix(false)
+  map.attributionControl.addAttribution(
+    'Map © <a href="https://yuanshen.site" target="_blank" rel="noopener noreferrer">Kongying Tavern</a> · Genshin Impact © HoYoverse',
+  )
   L.control.zoom({ position: 'bottomleft' }).addTo(map)
 
   overviewBounds = L.latLngBounds(stops.map((p) => p.ll))
   map.fitBounds(overviewBounds, overviewPadding())
 
-  const mapBounds = L.latLngBounds([0, 0], [MAP_W, MAP_H])
-  map.setMaxBounds(mapBounds.pad(0.05))
+  const tileBounds = L.latLngBounds(
+    L.latLng(-MAP_CENTER[0] + TILES_OFFSET[0], -MAP_CENTER[1] + TILES_OFFSET[1]),
+    L.latLng(MAP_SIZE[0] - MAP_CENTER[0] + TILES_OFFSET[0], MAP_SIZE[1] - MAP_CENTER[1] + TILES_OFFSET[1]),
+  )
+  map.setMaxBounds(tileBounds.pad(0.05))
   map.options.maxBoundsViscosity = 1.0
 
-  // One image rather than tiles: tiles left hairline seams at fractional zoom.
-  L.imageOverlay('map.webp', mapBounds, { className: 'map-image' }).addTo(map)
+  new GiTiles('', {
+    maxZoom: 2,
+    minZoom: -6,
+    maxNativeZoom: 0,
+    minNativeZoom: -3,
+    tileSize: 256,
+    noWrap: true,
+    // The CDN's coverage stops at projected x 12288.
+    bounds: L.latLngBounds(
+      L.latLng(-MAP_CENTER[0] + TILES_OFFSET[0], -MAP_CENTER[1] + TILES_OFFSET[1]),
+      L.latLng(12288 - MAP_CENTER[0], MAP_SIZE[1] - MAP_CENTER[1] + TILES_OFFSET[1]),
+    ),
+  }).addTo(map)
 
   L.polyline(stops.map((p) => p.ll), {
     className: 'gi-route',
@@ -102,7 +139,7 @@ function buildMap() {
     pane: 'journey',
     interactive: false,
     keyboard: false,
-    icon: L.divIcon({ className: 'journey-traveler', html: '<div class="jt-icon"><span class="wisp"></span></div>', iconSize: [0, 0] }),
+    icon: L.divIcon({ className: 'journey-traveler', html: '<img class="jt-icon" src="traveler.png" alt="" draggable="false">', iconSize: [0, 0] }),
   }).addTo(map)
 
   map.on('zoomend moveend', declutter)
@@ -131,7 +168,7 @@ function declutter() {
   }
 }
 
-// The guide's trail streams behind it, so it flips to face the way it is heading.
+// The sprite faces left, so it mirrors whenever it walks east.
 function face(from, to) {
   const img = traveler.getElement()?.querySelector('.jt-icon')
   if (img && to[0] !== from[0]) img.classList.toggle('jt-right', to[0] > from[0])
@@ -144,13 +181,13 @@ function pulse(i) {
   lbl.classList.add('journey-pulse')
 }
 
-// At a waypoint whose label hangs above it, the guide drifts aside so it isn't sitting on the name.
+// At a waypoint whose label hangs above it, Aether steps aside so he isn't standing on the name.
 function rest(walking) {
   const img = traveler.getElement()?.querySelector('.jt-icon')
   img?.classList.toggle('jt-beside', !walking && stops[travelerAt].side === 'top')
 }
 
-// Walks the guide through points at constant speed, pulsing each stop it reaches.
+// Walks Aether through points at constant speed, pulsing each stop it reaches.
 function walkPath(pts, idxs, totalMs) {
   if (walk) cancelAnimationFrame(walk.raf)
   travelerAt = idxs[idxs.length - 1]
@@ -291,8 +328,10 @@ const ABOUT_KEY = 'seen-about'
 const introOpen = () => !document.getElementById('about').hidden
 
 function openAbout() {
-  document.getElementById('about').hidden = false
-  document.getElementById('about-go').focus()
+  const about = document.getElementById('about')
+  about.hidden = false
+  about.scrollTop = 0
+  document.getElementById('about-go').focus({ preventScroll: true })
 }
 
 function closeAbout() {

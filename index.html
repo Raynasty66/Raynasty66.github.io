@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Raymond Yang Portfolio</title>
-    <meta name="description" content="Raymond Yang's projects, in the order he built them, charted on a map." />
+    <meta name="description" content="Raymond Yang's projects, in the order he built them, charted across Teyvat." />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
     <link rel="stylesheet" href="style.css" />
@@ -41,17 +41,23 @@
     <div class="intro-modal" id="about" hidden>
       <div class="intro-card" role="dialog" aria-modal="true" aria-labelledby="about-title">
         <button class="card-close" id="about-close" type="button" aria-label="Close">✕</button>
-        <h2 id="about-title">Hi, I'm Raymond</h2>
-        <p>
-          I study Biomedical Engineering and Computer Science (B.S./M.S.) at Georgia Tech. At work I build ML
-          pipelines and research software. On the side I make dumb, fun projects and film them for my
-          <a href="https://www.youtube.com/@CouldYouShouldYou" target="_blank" rel="noopener noreferrer">YouTube channel</a>.
-        </p>
+        <div class="about-top">
+          <img class="about-photo" src="me.webp" alt="Raymond holding YOASOBI concert tickets" width="560" height="560">
+          <div>
+            <h2 id="about-title">Hi, I'm Raymond</h2>
+            <p>
+              I'm currently in my fourth year as a BS/MS Biomedical Engineering / Computer Science student at
+              Georgia Tech. I'm super invested in machine learning and building data pipelines at work, but I
+              also love making silly, fun projects about games, memes and anime on the side. Most of them end up on my
+              <a href="https://www.youtube.com/@CouldYouShouldYou" target="_blank" rel="noopener noreferrer">YouTube channel</a>.
+            </p>
+          </div>
+        </div>
 
         <h3>Experience</h3>
         <ul class="xp">
           <li>
-            <div class="xp-head"><strong>Regeneron Pharmaceuticals</strong><span>Jan – Jun 2026</span></div>
+            <div class="xp-head"><strong>Regeneron Pharmaceuticals</strong><span>Jan – Aug 2026</span></div>
             <div class="xp-role">Bioinformatics / Software Developer Co-op</div>
             <p>Built an MCP-backed agent that routes scientists' questions to the right Databricks Genie space and runs the SQL against live data. Used by 50+ scientists.</p>
           </li>
