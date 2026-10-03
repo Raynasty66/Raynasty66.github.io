@@ -33,7 +33,7 @@ Everything on the page comes from `projects.json`. Add an entry and push:
 - `side` hangs the label `top` or `bottom` of its waypoint. Labels that would
   collide fold down to their numbered diamond and open on hover.
 - The first link is drawn as the gold button.
-- `gif` is the looping demo shown on the card; leave it out and the card just skips it.
+- `gif` is the looping demo on the card: a `.gif`, or a silent `.mp4` that autoplays on loop. Leave it out and the card skips it.
 
 ## Running locally
 

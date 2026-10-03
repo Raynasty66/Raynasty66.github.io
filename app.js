@@ -240,6 +240,13 @@ function focusOn(i) {
   map.flyTo(target, z, { duration: reduceMotion ? 0 : 0.9 })
 }
 
+// Smooth demos ship as silent looping MP4s, which behave like a GIF at a fraction of the size.
+function demoHtml(p) {
+  if (!p.gif) return ''
+  if (p.gif.endsWith('.mp4')) return `<video class="card-gif" src="${esc(p.gif)}" autoplay loop muted playsinline aria-label="${esc(p.name)} in action"></video>`
+  return `<img class="card-gif" src="${esc(p.gif)}" alt="${esc(p.name)} in action">`
+}
+
 function renderCard(i) {
   const p = stops[i]
   const card = document.getElementById('card')
@@ -250,7 +257,7 @@ function renderCard(i) {
     <div class="card-date">${fmtDate(p.date)}</div>
     <p class="card-tagline">${esc(p.tagline)}</p>
     <p class="card-summary">${esc(p.summary)}</p>
-    ${p.gif ? `<img class="card-gif" src="${esc(p.gif)}" alt="${esc(p.name)} in action" width="480" height="270">` : ''}
+    ${demoHtml(p)}
     <ul class="card-stack">${p.stack.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>
     <div class="card-links">${p.links
       .map((l, k) => `<a class="pill${k === 0 ? ' pill-gold' : ''}" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)}</a>`)

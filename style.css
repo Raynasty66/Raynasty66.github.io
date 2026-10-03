@@ -490,9 +490,7 @@ button {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 9;
   margin: 0 0 0.9rem;
-  object-fit: cover;
   background: var(--gi-panel-dark);
   border: 1px solid var(--gi-hairline);
   border-radius: 8px;

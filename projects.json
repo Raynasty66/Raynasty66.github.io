@@ -47,7 +47,7 @@
     "date": "2026-07-26",
     "ll": [6456, 3355],
     "side": "top",
-    "gif": "gifs/mamboifier.gif",
+    "gif": "gifs/mamboifier.mp4",
     "tagline": "Re-sings any song with a couple of funny syllables",
     "summary": "Record a funny one or two syllable word, like \"mambo\", and it re-sings songs using only those syllables.",
     "stack": ["Python", "Audio DSP", "Pitch tracking"],
@@ -61,7 +61,7 @@
     "date": "2026-08-12",
     "ll": [2040, 3980],
     "side": "bottom",
-    "gif": "gifs/ritopaint.gif",
+    "gif": "gifs/ritopaint.mp4",
     "tagline": "Draw on League replays and the ink stays on the ground",
     "summary": "A transparent overlay that reads the camera pose from League's Replay API, so your arrows and circles stay pinned to the map as the camera pans.",
     "stack": ["Python", "Win32", "League Replay API"],
@@ -75,7 +75,7 @@
     "date": "2026-08-19",
     "ll": [-6500, -510],
     "side": "bottom",
-    "gif": "gifs/linkedindestroyer.gif",
+    "gif": "gifs/linkedindestroyer.mp4",
     "tagline": "Charges up and fires at AI slop posts",
     "summary": "A Chrome extension for LinkedIn. It charges up, fires at AI slop posts, and leaves a hole where they were.",
     "stack": ["JavaScript", "Web Animations API", "Chrome extension"],
@@ -90,12 +90,12 @@
     "date": "2026-08-23",
     "ll": [-5518, -5541],
     "side": "bottom",
-    "gif": "gifs/genshin-soundpact.gif",
+    "gif": "gifs/genshin-soundpact.mp4",
     "tagline": "Yu-Peng Chen's Genshin music, mapped across Teyvat",
     "summary": "Every region of Teyvat holds the tracks that play there. Zoom into a region, open a track, and play it side by side with the piece that inspired it, one in each ear.",
     "stack": ["React", "Leaflet", "Web Audio", "Cloudflare Workers"],
     "links": [
-      { "label": "Visit the site", "url": "https://genshin-soundpact.org" }
+      { "label": "Site", "url": "https://genshin-soundpact.org" }
     ]
   }
 ]
