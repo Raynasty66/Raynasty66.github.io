@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Raymond He Yang · Projects</title>
+    <meta name="description" content="Raymond He Yang's projects, in the order he built them, charted across Teyvat." />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="site-header">
+        <a class="site-title" href="#/">Raymond <span>He Yang</span></a>
+        <nav>
+          <a href="https://github.com/Raynasty66" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://genshin-soundpact.org" target="_blank" rel="noopener noreferrer">Genshin Soundpact</a>
+        </nav>
+      </header>
+
+      <main>
+        <p class="tagline">
+          Everything I've built, in the order I built it. Follow the traveler from
+          <strong>Mondstadt</strong> to <strong>Fontaine</strong>, or click any waypoint to read about it.
+          Drag to pan, scroll to zoom, arrow keys step through.
+        </p>
+
+        <div class="map-wrap">
+          <div class="gi-map" id="map"></div>
+          <aside class="quest-card" id="card" hidden aria-live="polite"></aside>
+        </div>
+
+        <div class="map-controls">
+          <button class="pill pill-gold" id="tour" type="button">▶ Start the tour</button>
+          <button class="pill" id="replay" type="button">Replay the journey</button>
+        </div>
+
+        <section class="log">
+          <h2>Adventure log</h2>
+          <ol id="log"></ol>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>
+          Map © <a href="https://yuanshen.site" target="_blank" rel="noopener noreferrer">Kongying Tavern</a>
+          (CC BY-NC-SA) · Genshin Impact © HoYoverse. A fan-made, non-commercial page.
+        </p>
+      </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
