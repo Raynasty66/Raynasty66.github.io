@@ -257,6 +257,7 @@ function renderCard(i) {
     <div class="card-date">${fmtDate(p.date)}</div>
     <p class="card-tagline">${esc(p.tagline)}</p>
     <p class="card-summary">${esc(p.summary)}</p>
+    ${p.video ? `<button class="card-video" type="button" aria-label="Play the demo video" style="background-image:url(https://i.ytimg.com/vi/${esc(p.video)}/mqdefault.jpg)"><span class="play">▶</span></button>` : ''}
     <ul class="card-stack">${p.stack.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>
     <div class="card-links">${p.links
       .map((l, k) => `<a class="pill${k === 0 ? ' pill-gold' : ''}" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)}</a>`)
@@ -265,6 +266,16 @@ function renderCard(i) {
       <button class="nav-prev" type="button" ${i === 0 ? 'disabled' : ''}>◀ ${i > 0 ? esc(stops[i - 1].name) : 'Start'}</button>
       <button class="nav-next" type="button" ${i === stops.length - 1 ? 'disabled' : ''}>${i < stops.length - 1 ? esc(stops[i + 1].name) : 'The end, for now'} ▶</button>
     </div>`
+  // The player only loads once asked for, so flicking through waypoints stays light.
+  card.querySelector('.card-video')?.addEventListener('click', (e) => {
+    const f = document.createElement('iframe')
+    f.className = 'card-video'
+    f.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(p.video)}?autoplay=1&rel=0`
+    f.title = `${p.name} demo`
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'
+    f.allowFullscreen = true
+    e.currentTarget.replaceWith(f)
+  })
   card.querySelector('.card-close').addEventListener('click', () => go(-1))
   card.querySelector('.nav-prev').addEventListener('click', () => go(i - 1))
   card.querySelector('.nav-next').addEventListener('click', () => go(i + 1))

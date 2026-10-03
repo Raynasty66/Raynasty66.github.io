@@ -1,6 +1,7 @@
 [
   {
     "id": "lockin",
+    "video": "3zFZ_W8D9hY",
     "name": "LockIN",
     "date": "2026-05-11",
     "place": "Mondstadt",
@@ -15,6 +16,7 @@
   },
   {
     "id": "jjk-slander-bot",
+    "video": "vqoq42iJ7oo",
     "name": "JJK Slander Bot",
     "date": "2026-06-14",
     "place": "Dragonspine",
@@ -29,6 +31,7 @@
   },
   {
     "id": "reddit-post-meme-crawler",
+    "video": "vqoq42iJ7oo",
     "name": "Reddit Meme Crawler",
     "date": "2026-06-15",
     "place": "Liyue",
@@ -43,6 +46,7 @@
   },
   {
     "id": "mamboifier",
+    "video": "hj6Kg4xh_B8",
     "name": "MamboIfier",
     "date": "2026-07-26",
     "place": "Inazuma",
@@ -57,6 +61,7 @@
   },
   {
     "id": "ritopaint",
+    "video": "MNPSYVdPsBc",
     "name": "RitoPaint",
     "date": "2026-08-12",
     "place": "Watatsumi Island",
@@ -66,12 +71,12 @@
     "summary": "A transparent overlay that reads the camera pose from League's Replay API, so your arrows and circles stay pinned to the map as the camera pans.",
     "stack": ["Python", "Win32", "League Replay API"],
     "links": [
-      { "label": "GitHub", "url": "https://github.com/Raynasty66/RitoPaint" },
-      { "label": "Demo video", "url": "https://www.youtube.com/watch?v=MNPSYVdPsBc" }
+      { "label": "GitHub", "url": "https://github.com/Raynasty66/RitoPaint" }
     ]
   },
   {
     "id": "linkedindestroyer",
+    "video": "Px4MNTqn3nE",
     "name": "LinkedInDestroyer",
     "date": "2026-08-19",
     "place": "Sumeru Desert",
@@ -81,11 +86,13 @@
     "summary": "A Chrome extension that charges up, fires, and leaves a hole straight through any post that says AI, GPT, LLM or agentic. No server, nothing leaves your machine.",
     "stack": ["JavaScript", "Web Animations API", "Chrome extension"],
     "links": [
+      { "label": "Chrome Web Store", "url": "https://chromewebstore.google.com/detail/linkedindestroyer/bpklejbmkddkagfhdknllkifineechjf" },
       { "label": "GitHub", "url": "https://github.com/Raynasty66/LinkedInDestroyer" }
     ]
   },
   {
     "id": "genshin-soundpact",
+    "video": "nJ-LdhCzeiQ",
     "name": "Genshin Soundpact",
     "date": "2026-08-23",
     "place": "Sumeru",

@@ -487,6 +487,45 @@ button {
   color: var(--gi-parchment-dim);
 }
 
+/* Demo video: the thumbnail stands in until it's clicked */
+.card-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 0.9rem;
+  padding: 0;
+  border: 1px solid var(--gi-hairline);
+  border-radius: 8px;
+  background: var(--gi-panel-dark) center / cover no-repeat;
+  cursor: pointer;
+}
+
+button.card-video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-video .play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding-left: 0.2rem;
+  font-size: 1.1rem;
+  color: var(--gi-ink);
+  background: var(--gold);
+  border-radius: 999px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+button.card-video:hover .play {
+  transform: scale(1.08);
+  background: var(--gi-gold-bright);
+}
+
 .card-stack {
   display: flex;
   flex-wrap: wrap;
