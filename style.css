@@ -731,6 +731,94 @@ button {
   animation: card-pop 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.15);
 }
 
+/* Page tabs: the same pill switch Soundpact uses, gold for the open page */
+.intro-tabs {
+  display: inline-flex;
+  margin: 0 2.4rem 1.2rem 0;
+  border: 1px solid var(--gi-hairline);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.intro-tabs button {
+  padding: 0.35rem 1.1rem;
+  font-size: 0.85rem;
+  color: var(--gi-parchment-dim);
+  background: var(--gi-elevated);
+  border: 0;
+  cursor: pointer;
+}
+
+.intro-tabs button + button {
+  border-left: 1px solid var(--gi-hairline);
+}
+
+.intro-tabs button:hover {
+  color: var(--gi-parchment);
+}
+
+.intro-tabs button[aria-selected='true'] {
+  font-weight: 700;
+  color: var(--gi-ink);
+  background: var(--gold);
+}
+
+.intro-page[hidden] {
+  display: none;
+}
+
+.intro-page {
+  margin-bottom: 1.2rem;
+}
+
+.text-link {
+  padding: 0;
+  font: inherit;
+  color: var(--gold);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.link-list {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  padding: 0.75rem 0.95rem;
+  text-decoration: none;
+  background: var(--gi-panel-dark);
+  border: 1px solid var(--gi-hairline);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.link-list a:hover {
+  background: var(--gi-elevated);
+}
+
+.link-list strong {
+  font-family: var(--gi-serif);
+  font-size: 1rem;
+  color: var(--gold);
+}
+
+.link-list span {
+  font-size: 0.85rem;
+  color: var(--gi-parchment-dim);
+}
+
 .intro-card h2 {
   margin: 0 2.4rem 0.6rem 0;
   font-family: var(--gi-serif);
@@ -758,7 +846,7 @@ button {
 }
 
 .about-top p {
-  margin: 0;
+  margin: 0 0 0.7rem;
   font-size: 0.98rem;
   line-height: 1.65;
 }

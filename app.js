@@ -331,7 +331,15 @@ function place(i) {
 const ABOUT_KEY = 'seen-about'
 const introOpen = () => !document.getElementById('about').hidden
 
-function openAbout() {
+// The popup has three pages; every button or tab carrying data-page switches to that page.
+function showPage(page) {
+  document.querySelectorAll('.intro-page').forEach((el) => { el.hidden = el.dataset.page !== page })
+  document.querySelectorAll('.intro-tabs [data-page]').forEach((b) => b.setAttribute('aria-selected', b.dataset.page === page))
+  document.getElementById('about').scrollTop = 0
+}
+
+function openAbout(page = 'about') {
+  showPage(page)
   const about = document.getElementById('about')
   about.hidden = false
   about.scrollTop = 0
@@ -378,7 +386,8 @@ async function main() {
   buildMap()
   buildLog()
   place(Math.max(0, stops.findIndex((p) => p.id === storeGet(LAST_KEY))))
-  document.getElementById('about-open').addEventListener('click', openAbout)
+  document.querySelectorAll('.site-header [data-page]').forEach((b) => b.addEventListener('click', () => openAbout(b.dataset.page)))
+  document.querySelectorAll('.intro-card [data-page]:not(section)').forEach((b) => b.addEventListener('click', () => showPage(b.dataset.page)))
   document.getElementById('about-close').addEventListener('click', closeAbout)
   document.getElementById('about-go').addEventListener('click', closeAbout)
   document.getElementById('about').addEventListener('click', (e) => { if (e.target.id === 'about') closeAbout() })

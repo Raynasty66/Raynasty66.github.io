@@ -14,7 +14,9 @@
       <header class="site-header">
         <a class="site-title" href="#/">Raymond Yang <span>Portfolio</span></a>
         <nav>
-          <button class="nav-about" id="about-open" type="button">About me</button>
+          <button class="nav-about" type="button" data-page="about">About me</button>
+          <button class="nav-about" type="button" data-page="experience">Experience</button>
+          <button class="nav-about" type="button" data-page="links">Links</button>
           <a href="https://github.com/Raynasty66" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="https://www.linkedin.com/in/raymond-h-yang/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </nav>
@@ -22,7 +24,7 @@
 
       <main>
         <p class="tagline">
-          Everything I've built, in the order I built it. Click a waypoint to see it in action.
+          A road map of my projects, in the order built.
         </p>
 
         <div class="map-wrap">
@@ -38,48 +40,71 @@
     </div>
 
     <div class="intro-modal" id="about" hidden>
-      <div class="intro-card" role="dialog" aria-modal="true" aria-labelledby="about-title">
+      <div class="intro-card" role="dialog" aria-modal="true" aria-label="About Raymond">
         <button class="card-close" id="about-close" type="button" aria-label="Close">✕</button>
-        <div class="about-top">
-          <img class="about-photo" src="me.webp" alt="Raymond holding YOASOBI concert tickets" width="560" height="560">
-          <div>
-            <h2 id="about-title">Hi, I'm Raymond</h2>
-            <p>
-              I'm currently in my fourth year as a BS/MS Biomedical Engineering / Computer Science student at
-              Georgia Tech. I'm super invested in machine learning and building data pipelines at work, but I
-              also love making silly, fun projects about games, memes and anime on the side.
-            </p>
-          </div>
+        <div class="intro-tabs" role="tablist">
+          <button type="button" role="tab" data-page="about">About</button>
+          <button type="button" role="tab" data-page="experience">Experience</button>
+          <button type="button" role="tab" data-page="links">Links</button>
         </div>
 
-        <h3>Experience</h3>
-        <ul class="xp">
-          <li>
-            <div class="xp-head"><strong>Regeneron Pharmaceuticals</strong><span>Jan – Aug 2026</span></div>
-            <div class="xp-role">Bioinformatics / Software Developer Co-op</div>
-            <p>Built an MCP-backed agent that routes scientists' questions to the right Databricks Genie space and runs the SQL against live data. Used by 30+ scientists.</p>
-          </li>
-          <li>
-            <div class="xp-head"><strong>Emory Deep Learning for Digital Pathology Lab</strong><span>Jul 2024 – Present</span></div>
-            <div class="xp-role">Undergraduate Research Assistant</div>
-            <p>Built a Kafka and FastAPI pipeline that segments 2GB+ slide images in under 5 minutes each, and U-Net models that automate kidney tissue annotation.</p>
-          </li>
-          <li>
-            <div class="xp-head"><strong>Flowers Invention Studio, Georgia Tech</strong><span>Mar 2025 – Present</span></div>
-            <div class="xp-role">Prototyping Instructor</div>
-            <p>Co-manage the largest student-run makerspace in the US and train students on waterjet, laser cutting, 3D printing and machining.</p>
-          </li>
-          <li>
-            <div class="xp-head"><strong>Nakatani RIES Fellowship, Tokyo</strong><span>May – Aug 2025</span></div>
-            <div class="xp-role">Research Intern</div>
-            <p>Hooked a real-time flow cytometer up to a Chi.Bio bioreactor for continuous monitoring of a cell culture.</p>
-          </li>
-          <li>
-            <div class="xp-head"><strong>Maker Venture GT Shenzhen</strong><span>Jun – Aug 2024</span></div>
-            <div class="xp-role">Engineering Intern</div>
-            <p>Designed and prototyped an Arduino-controlled stair-climbing mechanism for cleaning robots.</p>
-          </li>
-        </ul>
+        <section class="intro-page" data-page="about">
+          <div class="about-top">
+            <img class="about-photo" src="me.webp" alt="Raymond holding YOASOBI concert tickets" width="560" height="560">
+            <div>
+              <h2>Hi, I'm Raymond!!!</h2>
+              <p>
+                I'm currently in my fourth year as a BS/MS Biomedical Engineering / Computer Science student at
+                Georgia Tech. I'm super invested in machine learning and building data pipelines at work, but I
+                also love making silly, fun projects about games, memes and anime on the side.
+              </p>
+              <p>
+                My work is under <button class="text-link" type="button" data-page="experience">Experience</button>,
+                and my projects are on the map behind this window.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="intro-page" data-page="experience" hidden>
+          <h2>Experience</h2>
+          <ul class="xp">
+            <li>
+              <div class="xp-head"><strong>Regeneron Pharmaceuticals</strong><span>Jan – Aug 2026</span></div>
+              <div class="xp-role">Bioinformatics / Software Developer Co-op</div>
+              <p>Built an MCP-backed agent that routes scientists' questions to the right Databricks Genie space and runs the SQL against live data. Used by 30+ scientists.</p>
+            </li>
+            <li>
+              <div class="xp-head"><strong>Emory Deep Learning for Digital Pathology Lab</strong><span>Jul 2024 – Present</span></div>
+              <div class="xp-role">Undergraduate Research Assistant</div>
+              <p>Built a Kafka and FastAPI pipeline that segments 2GB+ slide images in under 5 minutes each, and U-Net models that automate kidney tissue annotation.</p>
+            </li>
+            <li>
+              <div class="xp-head"><strong>Flowers Invention Studio, Georgia Tech</strong><span>Mar 2025 – Present</span></div>
+              <div class="xp-role">Prototyping Instructor</div>
+              <p>Co-manage the largest student-run makerspace in the US and train students on waterjet, laser cutting, 3D printing and machining.</p>
+            </li>
+            <li>
+              <div class="xp-head"><strong>Nakatani RIES Fellowship, Tokyo</strong><span>May – Aug 2025</span></div>
+              <div class="xp-role">Research Intern</div>
+              <p>Hooked a real-time flow cytometer up to a Chi.Bio bioreactor for continuous monitoring of a cell culture.</p>
+            </li>
+            <li>
+              <div class="xp-head"><strong>Maker Venture GT Shenzhen</strong><span>Jun – Aug 2024</span></div>
+              <div class="xp-role">Engineering Intern</div>
+              <p>Designed and prototyped an Arduino-controlled stair-climbing mechanism for cleaning robots.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="intro-page" data-page="links" hidden>
+          <h2>Links</h2>
+          <ul class="link-list">
+            <li><a href="https://github.com/Raynasty66" target="_blank" rel="noopener noreferrer"><strong>GitHub</strong><span>github.com/Raynasty66</span></a></li>
+            <li><a href="https://www.linkedin.com/in/raymond-h-yang/" target="_blank" rel="noopener noreferrer"><strong>LinkedIn</strong><span>linkedin.com/in/raymond-h-yang</span></a></li>
+            <li><a href="mailto:ryang367@gatech.edu"><strong>Email</strong><span>ryang367@gatech.edu</span></a></li>
+          </ul>
+        </section>
 
         <button class="pill pill-gold" id="about-go" type="button">See my projects</button>
       </div>
