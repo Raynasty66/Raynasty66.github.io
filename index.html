@@ -7,7 +7,7 @@
     <meta name="description" content="Raymond Yang's experience on a globe and projects on a map, each in the order they happened." />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-    <link rel="stylesheet" href="style.css?v=9" />
+    <link rel="stylesheet" href="style.css?v=10" />
   </head>
   <body>
     <div class="app">
@@ -16,6 +16,7 @@
         <nav>
           <button class="nav-about" type="button" data-page="about">About me</button>
           <button class="nav-about" type="button" data-page="experience">Experience</button>
+          <button class="nav-about" type="button" data-page="projects">Projects</button>
           <button class="nav-about" type="button" data-page="links">Links</button>
           <a href="https://github.com/Raynasty66" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="https://www.linkedin.com/in/raymond-h-yang/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -32,6 +33,7 @@
           <p class="tagline">Where I've worked, in the order I got there.</p>
           <div class="map-wrap" id="globe-wrap">
             <div class="gi-map globe" id="globe"></div>
+            <div class="globe-credit">Globe by <a href="https://globe.gl" target="_blank" rel="noopener noreferrer">globe.gl</a> · Earth imagery: <a href="https://visibleearth.nasa.gov/collection/1484/blue-marble" target="_blank" rel="noopener noreferrer">NASA Blue Marble</a></div>
             <aside class="quest-card" id="xp-card" hidden aria-live="polite"></aside>
           </div>
           <section class="log">
@@ -60,6 +62,7 @@
         <div class="intro-tabs" role="tablist">
           <button type="button" role="tab" data-page="about">About</button>
           <button type="button" role="tab" data-page="experience">Experience</button>
+          <button type="button" role="tab" data-page="projects">Projects</button>
           <button type="button" role="tab" data-page="links">Links</button>
         </div>
 
@@ -74,8 +77,7 @@
                 also love making silly, fun projects about games, memes and anime on the side.
               </p>
               <p>
-                My work is under <button class="text-link" type="button" data-page="experience">Experience</button>.
-                Behind this window, the globe follows where I've worked and the Teyvat map follows what I've built.
+                Behind this window, the globe follows my work experiences and the Genshin map shows my personal projects.
               </p>
             </div>
           </div>
@@ -83,33 +85,12 @@
 
         <section class="intro-page" data-page="experience" hidden>
           <h2>Experience</h2>
-          <ul class="xp">
-            <li>
-              <div class="xp-head"><strong>Regeneron Pharmaceuticals</strong><span>Jan – Aug 2026</span></div>
-              <div class="xp-role">Bioinformatics / Software Developer Co-op</div>
-              <p>Built an MCP-backed agent that routes scientists' questions to the right Databricks Genie space and runs the SQL against live data. Used by 30+ scientists.</p>
-            </li>
-            <li>
-              <div class="xp-head"><strong>Emory Deep Learning for Digital Pathology Lab</strong><span>Jul 2024 – Present</span></div>
-              <div class="xp-role">Undergraduate Research Assistant</div>
-              <p>Built a Kafka and FastAPI pipeline that segments 2GB+ slide images in under 5 minutes each, and U-Net models that automate kidney tissue annotation.</p>
-            </li>
-            <li>
-              <div class="xp-head"><strong>Flowers Invention Studio, Georgia Tech</strong><span>Mar 2025 – Present</span></div>
-              <div class="xp-role">Prototyping Instructor</div>
-              <p>Co-manage the largest student-run makerspace in the US and train students on waterjet, laser cutting, 3D printing and machining.</p>
-            </li>
-            <li>
-              <div class="xp-head"><strong>Nakatani RIES Fellowship, Tokyo</strong><span>May – Aug 2025</span></div>
-              <div class="xp-role">Research Intern</div>
-              <p>Hooked a real-time flow cytometer up to a Chi.Bio bioreactor for continuous monitoring of a cell culture.</p>
-            </li>
-            <li>
-              <div class="xp-head"><strong>Maker Venture GT Shenzhen</strong><span>Jun – Aug 2024</span></div>
-              <div class="xp-role">Engineering Intern</div>
-              <p>Designed and prototyped an Arduino-controlled stair-climbing mechanism for cleaning robots.</p>
-            </li>
-          </ul>
+          <ul class="xp" id="pop-xp"></ul>
+        </section>
+
+        <section class="intro-page" data-page="projects" hidden>
+          <h2>Projects</h2>
+          <ul class="xp" id="pop-proj"></ul>
         </section>
 
         <section class="intro-page" data-page="links" hidden>
@@ -127,7 +108,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js"></script>
-    <script src="app.js?v=9"></script>
-    <script src="globe.js?v=9"></script>
+    <script src="app.js?v=10"></script>
+    <script src="globe.js?v=10"></script>
   </body>
 </html>

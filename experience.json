@@ -10,7 +10,14 @@
         "role": "Engineering Intern",
         "dates": "Jun – Aug 2024",
         "start": "2024-06",
-        "summary": "Designed and prototyped an Arduino-controlled stair-climbing mechanism for cleaning robots."
+        "points": [
+          "Worked in a simulated startup environment and picked a real problem: robot vacuums can't get between floors.",
+          "Prototyped an Arduino-controlled stair-climbing mechanism, taking a $1,000 stair-climbing Roomba down to about $100 in parts for a regular Roomba."
+        ],
+        "skills": ["Arduino", "C++", "3D printing"],
+        "images": [
+          { "src": "xp/shenzhen-tencent.webp", "caption": "Visiting Tencent's Shenzhen headquarters during the program" }
+        ]
       }
     ]
   },
@@ -25,14 +32,31 @@
         "role": "Undergraduate Research Assistant",
         "dates": "Jul 2024 – Present",
         "start": "2024-07",
-        "summary": "Built a Kafka and FastAPI pipeline that segments 2GB+ slide images in under 5 minutes each, and U-Net models that automate kidney tissue annotation."
+        "points": [
+          "Built a Kafka and FastAPI pipeline that segments 2GB+ whole-slide kidney images in under 5 minutes each.",
+          "Trained U-Net models that turn tissue into binary masks of tubules and their basement membrane, automating annotation that took pathologists hours per slide."
+        ],
+        "skills": ["PyTorch", "U-Net", "Kafka", "FastAPI"],
+        "images": [
+          { "src": "xp/emory-tubule.webp", "caption": "One tubule through the pipeline: model prediction, masks, and the final basement-membrane ring" },
+          { "src": "xp/emory-tbm-mask.webp", "caption": "Binary basement-membrane mask for a whole tissue patch" }
+        ]
       },
       {
         "org": "Flowers Invention Studio, Georgia Tech",
         "role": "Prototyping Instructor",
         "dates": "Mar 2025 – Present",
         "start": "2025-03",
-        "summary": "Co-manage the largest student-run makerspace in the US and train students on waterjet, laser cutting, 3D printing and machining."
+        "points": [
+          "Co-manage the largest student-run makerspace in the US, with 500+ tools serving 1,000+ users.",
+          "Train students on waterjet, laser cutting, 3D printing and machining, and help makers pick how to build their projects."
+        ],
+        "skills": ["Waterjet", "Laser cutting", "3D printing", "Machining"],
+        "links": [{ "label": "Invention Studio", "url": "https://inventionstudio.gatech.edu/" }],
+        "images": [
+          { "src": "xp/flowers-hub.webp", "caption": "The Invention Studio hub", "credit": "Photo: Invention Studio @ Georgia Tech" },
+          { "src": "xp/flowers-kerf.webp", "caption": "A member-built kerf-bending cabinet", "credit": "Photo: Invention Studio @ Georgia Tech" }
+        ]
       }
     ]
   },
@@ -43,11 +67,22 @@
     "side": "top",
     "roles": [
       {
-        "org": "Nakatani RIES Fellowship, Tokyo",
-        "role": "Research Intern",
+        "org": "Nakatani RIES Fellowship, University of Tokyo",
+        "role": "Research Intern, Sadao Ota Biophotonics Lab (RCAST)",
         "dates": "May – Aug 2025",
         "start": "2025-05",
-        "summary": "Hooked a real-time flow cytometer up to a Chi.Bio bioreactor for continuous monitoring of a cell culture."
+        "points": [
+          "Connected a Chi.Bio bioreactor to a real-time flow cytometer, so bacteria are pumped and analyzed continuously instead of hand-loaded by syringe.",
+          "Showed the bioreactor grows cultures as well as a standard incubator.",
+          "Parallelized alginate gel generation for gastruloid culture: 10 capillaries made about 11,000 gels in 5 minutes versus about 1,200 with one, then designed a microdevice to make the setup easy."
+        ],
+        "skills": ["Chi.Bio", "Flow cytometry", "Cell culture", "Microfluidics"],
+        "images": [
+          { "src": "xp/tokyo-bench.webp", "caption": "The flow cytometer bench" },
+          { "src": "xp/tokyo-setup.webp", "caption": "Old syringe-pump setup vs. the new bioreactor loop" },
+          { "src": "xp/tokyo-gels.webp", "caption": "Alginate gels from the parallel capillaries" },
+          { "src": "xp/tokyo-chart.webp", "caption": "Gels made in 5 minutes by number of capillaries" }
+        ]
       }
     ]
   },
@@ -62,7 +97,15 @@
         "role": "Bioinformatics / Software Developer Co-op",
         "dates": "Jan – Aug 2026",
         "start": "2026-01",
-        "summary": "Built an MCP-backed agent that routes scientists' questions to the right Databricks Genie space and runs the SQL against live data. Used by 30+ scientists."
+        "points": [
+          "Architected a data ingestion pipeline used internally by 10+ scientists, cutting ingestion time from a day to minutes.",
+          "Built an MCP-backed agent that routes scientists' questions to the right Databricks Genie space and runs the SQL against live data. Used by 30+ scientists.",
+          "Wrote the documentation and supported scientist user groups deploying their apps on Posit."
+        ],
+        "skills": ["Python", "SQL", "Databricks", "MCP", "Jenkins", "Posit"],
+        "images": [
+          { "src": "xp/regeneron.webp", "caption": "At Regeneron, Tarrytown" }
+        ]
       }
     ]
   }

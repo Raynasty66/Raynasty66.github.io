@@ -11,7 +11,8 @@ Live at **https://raynasty66.github.io**
 
 `experience.json` drives the globe. Each stop is a place (`ll` is real
 `[latitude, longitude]`) with one or more `roles`; `side` hangs the label above
-(`top`) or below (`bottom`) the pin.
+(`top`) or below (`bottom`) the pin. Each role takes `points`, `skills`, optional
+`links`, and `images` (`src`, `caption`, optional `credit`) from the `xp/` folder.
 
 ## Adding a project
 
@@ -59,4 +60,4 @@ and open http://localhost:8000. (Opening `index.html` directly won't load
 ## Credits
 
 Map tiles © [Kongying Tavern](https://yuanshen.site), CC BY-NC-SA. Genshin Impact
-© HoYoverse. Rendering by [Leaflet](https://leafletjs.com) and [globe.gl](https://globe.gl); Earth imagery from NASA Blue Marble.
+© HoYoverse. Rendering by [Leaflet](https://leafletjs.com) and [globe.gl](https://globe.gl); Earth imagery from NASA Blue Marble (public domain). Invention Studio photos © Invention Studio @ Georgia Tech, credited on the card.

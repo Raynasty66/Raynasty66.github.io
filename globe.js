@@ -43,6 +43,17 @@ function aetherEl() {
   return el
 }
 
+function gallery(r) {
+  const ims = r.images || []
+  if (!ims.length) return ''
+  const first = ims[0]
+  return `<figure class="xp-gallery">
+    <div class="xp-main"><img src="${esc(first.src)}" alt="${esc(first.caption)}" loading="lazy"></div>
+    <figcaption><span class="xp-cap">${esc(first.caption)}</span> <span class="xp-credit">${esc(first.credit || '')}</span></figcaption>
+    ${ims.length > 1 ? `<div class="xp-thumbs">${ims.map((im, k) => `<button type="button" class="${k ? '' : 'on'}" data-src="${esc(im.src)}" data-caption="${esc(im.caption)}" data-credit="${esc(im.credit || '')}" aria-label="${esc(im.caption)}"><img src="${esc(im.src)}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
+  </figure>`
+}
+
 function renderXpCard(i) {
   const p = xp[i]
   const card = document.getElementById('xp-card')
@@ -54,12 +65,26 @@ function renderXpCard(i) {
       <div class="xp-role-block">
         <div class="xp-head"><strong>${esc(r.org)}</strong><span>${esc(r.dates)}</span></div>
         <div class="xp-role">${esc(r.role)}</div>
-        <p>${esc(r.summary)}</p>
+        ${gallery(r)}
+        <ul class="xp-points">${(r.points || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+        ${r.skills ? `<ul class="card-stack">${r.skills.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
+        ${r.links ? `<div class="card-links">${r.links.map((l) => `<a class="pill" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)}</a>`).join('')}</div>` : ''}
       </div>`).join('')}
     <div class="card-nav">
       <button class="nav-prev" type="button" ${i === 0 ? 'disabled' : ''}>◀ ${i > 0 ? esc(xp[i - 1].place) : 'Start'}</button>
       <button class="nav-next" type="button" ${i === xp.length - 1 ? 'disabled' : ''}>${i < xp.length - 1 ? esc(xp[i + 1].place) : 'The end, for now'} ▶</button>
     </div>`
+  // Thumbnails swap the big photo and its caption in place.
+  card.querySelectorAll('.xp-gallery').forEach((gal) => {
+    gal.querySelectorAll('.xp-thumbs button').forEach((b) => b.addEventListener('click', () => {
+      const im = gal.querySelector('.xp-main img')
+      im.src = b.dataset.src
+      im.alt = b.dataset.caption
+      gal.querySelector('.xp-cap').textContent = b.dataset.caption
+      gal.querySelector('.xp-credit').textContent = b.dataset.credit
+      gal.querySelectorAll('.xp-thumbs button').forEach((o) => o.classList.toggle('on', o === b))
+    }))
+  })
   card.querySelector('.card-close').addEventListener('click', closeXp)
   card.querySelector('.nav-prev').addEventListener('click', () => openXp(i - 1))
   card.querySelector('.nav-next').addEventListener('click', () => openXp(i + 1))
@@ -147,7 +172,20 @@ async function initGlobe() {
   placeAether(last)
   globe.pointOfView(overviewPov(), 0)
   buildXpLog()
+  buildPopupXp()
   if (document.querySelector('.view[data-view="experience"]').hidden) globe.pauseAnimation()
+}
+
+// The popup's Experience page lists every role from the same data as the globe, newest first.
+function buildPopupXp() {
+  const roles = xp.flatMap((p) => p.roles).sort((a, b) => b.start.localeCompare(a.start))
+  document.getElementById('pop-xp').innerHTML = roles
+    .map((r) => `<li>
+      <div class="xp-head"><strong>${esc(r.org)}</strong><span>${esc(r.dates)}</span></div>
+      <div class="xp-role">${esc(r.role)}</div>
+      <p>${esc(r.points[0])}</p>
+    </li>`)
+    .join('')
 }
 
 function buildXpLog() {

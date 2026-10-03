@@ -383,6 +383,16 @@ function storeSet(k, v) {
   try { localStorage.setItem(k, v) } catch {}
 }
 
+// The popup's Projects page lists the same entries as the map.
+function buildPopupProjects() {
+  document.getElementById('pop-proj').innerHTML = stops
+    .map((p) => `<li>
+      <div class="xp-head"><strong>${esc(p.name)}</strong><span>${fmtDate(p.date)}</span></div>
+      <p>${esc(p.tagline)}</p>
+    </li>`)
+    .join('')
+}
+
 function buildLog() {
   document.getElementById('log').innerHTML = stops
     .map((p, i) => `<li>
@@ -411,6 +421,7 @@ async function main() {
   stops = (await res.json()).sort((a, b) => a.date.localeCompare(b.date))
   buildMap()
   buildLog()
+  buildPopupProjects()
   place(Math.max(0, stops.findIndex((p) => p.id === storeGet(LAST_KEY))))
   document.querySelectorAll('.site-header [data-page]').forEach((b) => b.addEventListener('click', () => openAbout(b.dataset.page)))
   document.querySelectorAll('.intro-card [data-page]:not(section)').forEach((b) => b.addEventListener('click', () => showPage(b.dataset.page)))
