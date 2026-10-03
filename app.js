@@ -5,7 +5,6 @@ const MAP_CENTER = [3568, 6969]
 const MAP_SIZE = [30370, 26624]
 const TILES_OFFSET = [-17408, -10240]
 const FOCUS_ZOOM = -1.5
-const JOURNEY_MS = 11000
 const HOP_MS = 1100
 const TILE_RETRY_MS = 700
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -187,7 +186,7 @@ function rest(walking) {
   img?.classList.toggle('jt-beside', !walking && stops[travelerAt].side === 'top')
 }
 
-// Walks Aether through points at constant speed, pulsing each stop it reaches.
+// Walks Aether to a waypoint at constant speed, then he stands still there.
 function walkPath(pts, idxs, totalMs) {
   if (walk) cancelAnimationFrame(walk.raf)
   travelerAt = idxs[idxs.length - 1]
@@ -229,12 +228,6 @@ function walkPath(pts, idxs, totalMs) {
     }
   }
   walk.raf = requestAnimationFrame(step)
-}
-
-function journey() {
-  closeCard()
-  map.flyToBounds(overviewBounds, { ...overviewPadding(), duration: reduceMotion ? 0 : 0.6 })
-  walkPath(stops.map((p) => p.ll), stops.map((_, i) => i), JOURNEY_MS)
 }
 
 // Centers the stop in whatever part of the map the card leaves uncovered.
@@ -291,6 +284,7 @@ function open(i) {
   document.querySelectorAll('#log li').forEach((li, k) => li.classList.toggle('active', k === i))
   renderCard(i)
   focusOn(i)
+  storeSet(LAST_KEY, stops[i].id)
   const card = document.getElementById('card')
   if (getComputedStyle(card).position !== 'absolute') card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' })
   if (travelerAt !== i || walk) {
@@ -309,21 +303,24 @@ function route(first) {
   const id = location.hash.replace(/^#\/?/, '')
   const i = stops.findIndex((p) => p.id === id)
   if (i >= 0) {
-    if (first) {
-      traveler.setLatLng(stops[i].ll)
-      travelerAt = i
-      rest(false)
-    }
+    if (first) place(i)
     open(i)
   } else if (current >= 0) {
     closeCard()
     map.flyToBounds(overviewBounds, { ...overviewPadding(), duration: reduceMotion ? 0 : 0.8 })
-  } else if (first && !introOpen()) {
-    journey()
   }
 }
 
-// The about popup opens by itself on a first visit, and the journey waits until it closes.
+// Aether stands still on the last waypoint the reader opened, or the first one on a first visit.
+const LAST_KEY = 'last-stop'
+
+function place(i) {
+  traveler.setLatLng(stops[i].ll)
+  travelerAt = i
+  rest(false)
+}
+
+// The about popup opens by itself on a first visit.
 const ABOUT_KEY = 'seen-about'
 const introOpen = () => !document.getElementById('about').hidden
 
@@ -335,10 +332,8 @@ function openAbout() {
 }
 
 function closeAbout() {
-  const firstClose = !storeGet(ABOUT_KEY)
   storeSet(ABOUT_KEY, '1')
   document.getElementById('about').hidden = true
-  if (firstClose && current < 0) journey()
 }
 
 function storeGet(k) {
@@ -375,6 +370,7 @@ async function main() {
   stops = (await res.json()).sort((a, b) => a.date.localeCompare(b.date))
   buildMap()
   buildLog()
+  place(Math.max(0, stops.findIndex((p) => p.id === storeGet(LAST_KEY))))
   document.getElementById('about-open').addEventListener('click', openAbout)
   document.getElementById('about-close').addEventListener('click', closeAbout)
   document.getElementById('about-go').addEventListener('click', closeAbout)

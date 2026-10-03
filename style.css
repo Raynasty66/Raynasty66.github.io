@@ -381,7 +381,6 @@ button {
   filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.6)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
   user-select: none;
   transition: left 0.3s ease, top 0.3s ease;
-  animation: hop 0.5s ease-in-out infinite alternate;
 }
 
 .jt-icon.jt-beside {
@@ -391,12 +390,6 @@ button {
 
 .jt-icon.jt-right {
   scale: -1 1;
-}
-
-@keyframes hop {
-  to {
-    translate: 0 -3px;
-  }
 }
 
 /* Quest card, the Genshin panel: slate body, gold kept for names and buttons */

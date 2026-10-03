@@ -92,7 +92,7 @@
     "side": "bottom",
     "gif": "gifs/genshin-soundpact.gif",
     "tagline": "Yu-Peng Chen's Genshin music, mapped across Teyvat",
-    "summary": "An interactive map of the regional soundtracks Yu-Peng Chen wrote, with the pieces that inspired them and side-by-side comparisons you can play, one track in each ear.",
+    "summary": "Every region of Teyvat holds the tracks that play there. Zoom into a region, open a track, and play it side by side with the piece that inspired it, one in each ear.",
     "stack": ["React", "Leaflet", "Web Audio", "Cloudflare Workers"],
     "links": [
       { "label": "Visit the site", "url": "https://genshin-soundpact.org" }
