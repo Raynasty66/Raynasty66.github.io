@@ -1,11 +1,17 @@
 # Raymond Yang Portfolio
 
-My projects, in the order I built them, charted across Teyvat in the style of
+My experience on a 3D globe and my projects on a Teyvat road map, in the style of
 [Genshin Soundpact](https://genshin-soundpact.org). Aether walks the route from
 the first project to the latest; click any waypoint (or use the arrow keys) to
 see it in action. The About me popup has my background and experience.
 
 Live at **https://raynasty66.github.io**
+
+## Adding experience
+
+`experience.json` drives the globe. Each stop is a place (`ll` is real
+`[latitude, longitude]`) with one or more `roles`; `side` hangs the label above
+(`top`) or below (`bottom`) the pin.
 
 ## Adding a project
 
@@ -35,8 +41,8 @@ Everything on the page comes from `projects.json`. Add an entry and push:
 - The first link is drawn as the gold button.
 - `gif` is the looping demo on the card: a `.gif`, or a silent `.mp4` that autoplays on loop. Leave it out and the card skips it.
 
-When you change `app.js`, `style.css` or `projects.json`, bump the `?v=` number on
-the two asset links in `index.html`, so visitors never mix an old cached script with
+When you change `app.js`, `globe.js`, `style.css` or either JSON file, bump the `?v=` number on
+the asset links in `index.html`, so visitors never mix an old cached script with
 new data.
 
 ## Running locally
@@ -53,4 +59,4 @@ and open http://localhost:8000. (Opening `index.html` directly won't load
 ## Credits
 
 Map tiles © [Kongying Tavern](https://yuanshen.site), CC BY-NC-SA. Genshin Impact
-© HoYoverse. Rendering by [Leaflet](https://leafletjs.com).
+© HoYoverse. Rendering by [Leaflet](https://leafletjs.com) and [globe.gl](https://globe.gl); Earth imagery from NASA Blue Marble.

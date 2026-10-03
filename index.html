@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Raymond Yang Portfolio</title>
-    <meta name="description" content="Raymond Yang's projects, in the order he built them, charted across Teyvat." />
+    <meta name="description" content="Raymond Yang's experience on a globe and projects on a map, each in the order they happened." />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-    <link rel="stylesheet" href="style.css?v=8" />
+    <link rel="stylesheet" href="style.css?v=9" />
   </head>
   <body>
     <div class="app">
@@ -23,18 +23,33 @@
       </header>
 
       <main>
-        <p class="tagline">
-          A road map of my projects, in the order built.
-        </p>
-
-        <div class="map-wrap">
-          <div class="gi-map" id="map"></div>
-          <aside class="quest-card" id="card" hidden aria-live="polite"></aside>
+        <div class="view-tabs" role="tablist">
+          <a href="#/experience" role="tab" data-view="experience">Experience</a>
+          <a href="#/projects" role="tab" data-view="projects">Projects</a>
         </div>
 
-        <section class="log">
-          <h2>Adventure log</h2>
-          <ol id="log"></ol>
+        <section class="view" data-view="experience">
+          <p class="tagline">Where I've worked, in the order I got there.</p>
+          <div class="map-wrap" id="globe-wrap">
+            <div class="gi-map globe" id="globe"></div>
+            <aside class="quest-card" id="xp-card" hidden aria-live="polite"></aside>
+          </div>
+          <section class="log">
+            <h2>Adventure log</h2>
+            <ol id="xp-log"></ol>
+          </section>
+        </section>
+
+        <section class="view" data-view="projects" hidden>
+          <p class="tagline">A road map of my projects, in the order built.</p>
+          <div class="map-wrap">
+            <div class="gi-map" id="map"></div>
+            <aside class="quest-card" id="card" hidden aria-live="polite"></aside>
+          </div>
+          <section class="log">
+            <h2>Adventure log</h2>
+            <ol id="log"></ol>
+          </section>
         </section>
       </main>
     </div>
@@ -59,8 +74,8 @@
                 also love making silly, fun projects about games, memes and anime on the side.
               </p>
               <p>
-                My work is under <button class="text-link" type="button" data-page="experience">Experience</button>,
-                and my projects are on the map behind this window.
+                My work is under <button class="text-link" type="button" data-page="experience">Experience</button>.
+                Behind this window, the globe follows where I've worked and the Teyvat map follows what I've built.
               </p>
             </div>
           </div>
@@ -106,11 +121,13 @@
           </ul>
         </section>
 
-        <button class="pill pill-gold" id="about-go" type="button">See my projects</button>
+        <button class="pill pill-gold" id="about-go" type="button">Start exploring</button>
       </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-    <script src="app.js?v=8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js"></script>
+    <script src="app.js?v=9"></script>
+    <script src="globe.js?v=9"></script>
   </body>
 </html>

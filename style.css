@@ -116,6 +116,98 @@ button {
   color: var(--gold);
 }
 
+/* Experience / Projects switch: Soundpact's gold pill tabs, larger */
+.view-tabs {
+  display: inline-flex;
+  margin: 0 0 1rem;
+  border: 1px solid var(--gi-hairline);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.view-tabs a {
+  padding: 0.45rem 1.5rem;
+  font-size: 0.95rem;
+  color: var(--gi-parchment-dim);
+  text-decoration: none;
+  background: var(--gi-elevated);
+}
+
+.view-tabs a + a {
+  border-left: 1px solid var(--gi-hairline);
+}
+
+.view-tabs a:hover {
+  color: var(--gi-parchment);
+}
+
+.view-tabs a[aria-selected='true'] {
+  font-weight: 700;
+  color: var(--gi-ink);
+  background: var(--gold);
+}
+
+.view[hidden] {
+  display: none;
+}
+
+/* The globe sits on the page's own dark, with the Earth darkened so gold reads on it */
+.globe {
+  background: radial-gradient(ellipse at 50% 45%, #1a2433 0%, var(--gi-bg-deep) 70%);
+}
+
+.globe canvas {
+  filter: brightness(0.78) saturate(0.9);
+  cursor: grab;
+}
+
+.globe canvas:active {
+  cursor: grabbing;
+}
+
+.xp-host .stop-label {
+  pointer-events: auto;
+}
+
+.xp-host,
+.xp-aether {
+  transition: opacity 0.25s ease;
+}
+
+.xp-aether {
+  position: relative;
+  pointer-events: none;
+}
+
+.xp-role-block {
+  padding: 0.7rem 0 0.75rem;
+  border-top: 1px solid var(--gi-hairline);
+}
+
+.xp-role-block:first-of-type {
+  margin-top: 0.6rem;
+}
+
+.xp-role-block p {
+  margin: 0.25rem 0 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--gi-parchment-dim);
+}
+
+.quest-card .xp-head strong {
+  font-family: var(--gi-serif);
+  font-size: 0.98rem;
+  color: var(--gold);
+}
+
+.quest-card .xp-head span {
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gi-parchment-dim);
+}
+
 /* Map */
 .map-wrap {
   position: relative;

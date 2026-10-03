@@ -45,7 +45,7 @@ function fmtDate(iso) {
   return `${MONTHS[+m - 1]} ${y}`
 }
 
-let map, stops, traveler, overviewBounds
+let map, stops, traveler, overviewBounds, maxBox
 let current = -1
 let travelerAt = 0
 let walk = null
@@ -96,8 +96,10 @@ function buildMap() {
     L.latLng(-MAP_CENTER[0] + TILES_OFFSET[0], -MAP_CENTER[1] + TILES_OFFSET[1]),
     L.latLng(MAP_SIZE[0] - MAP_CENTER[0] + TILES_OFFSET[0], MAP_SIZE[1] - MAP_CENTER[1] + TILES_OFFSET[1]),
   )
-  map.setMaxBounds(tileBounds.pad(0.05))
+  // The camera stays inside tile coverage, but only once the map has a real size: armed while hidden, it fights the first fit.
+  maxBox = tileBounds.pad(0.05)
   map.options.maxBoundsViscosity = 1.0
+  if (map.getSize().x) map.setMaxBounds(maxBox)
 
   new GiTiles('', {
     maxZoom: 2,
@@ -304,12 +306,33 @@ function open(i) {
 // The hash is the source of truth, so back/forward and shared links land on the same stop.
 function go(i) {
   if (i === current && i >= 0) return open(i)
-  location.hash = i >= 0 && i < stops.length ? `#/${stops[i].id}` : '#/'
+  location.hash = i >= 0 && i < stops.length ? `#/${stops[i].id}` : '#/projects'
+}
+
+// Experience is the default view; the projects map shows for #/projects or any project's own link.
+function showView(view) {
+  const was = document.querySelector('.view[data-view="projects"]').hidden
+  document.querySelectorAll('.view').forEach((el) => { el.hidden = el.dataset.view !== view })
+  document.querySelectorAll('.view-tabs [data-view]').forEach((a) => a.setAttribute('aria-selected', a.dataset.view === view))
+  // Leaflet measured a hidden box, so it re-measures and refits the first time it is seen.
+  if (view === 'projects' && was) {
+    map.invalidateSize({ animate: false })
+    map.stop()
+    if (current < 0) map.fitBounds(overviewBounds, { ...overviewPadding(), animate: false })
+    else focusOn(current)
+    map.setMaxBounds(maxBox)
+    declutter()
+  }
+  // The globe only renders while it is on screen.
+  if (typeof globe !== 'undefined' && globe) {
+    if (view === 'experience') { sizeGlobe(); globe.resumeAnimation() } else globe.pauseAnimation()
+  }
 }
 
 function route(first) {
   const id = location.hash.replace(/^#\/?/, '')
   const i = stops.findIndex((p) => p.id === id)
+  showView(i >= 0 || id === 'projects' ? 'projects' : 'experience')
   if (i >= 0) {
     if (first) place(i)
     open(i)
@@ -395,13 +418,20 @@ async function main() {
   document.getElementById('about-go').addEventListener('click', closeAbout)
   document.getElementById('about').addEventListener('click', (e) => { if (e.target.id === 'about') closeAbout() })
   if (!storeGet(ABOUT_KEY) && !location.hash.replace(/^#\/?/, '')) openAbout()
+  initGlobe()
   window.addEventListener('hashchange', () => route(false))
   document.addEventListener('keydown', (e) => {
     if (e.target.closest('input, textarea')) return
     if (introOpen()) { if (e.key === 'Escape') closeAbout(); return }
-    if (e.key === 'Escape' && current >= 0) go(-1)
-    else if (e.key === 'ArrowRight') go(Math.min(stops.length - 1, current + 1))
-    else if (e.key === 'ArrowLeft' && current > 0) go(current - 1)
+    if (!document.querySelector('.view[data-view="projects"]').hidden) {
+      if (e.key === 'Escape' && current >= 0) go(-1)
+      else if (e.key === 'ArrowRight') go(Math.min(stops.length - 1, current + 1))
+      else if (e.key === 'ArrowLeft' && current > 0) go(current - 1)
+    } else if (xp) {
+      if (e.key === 'Escape' && xpCurrent >= 0) closeXp()
+      else if (e.key === 'ArrowRight') openXp(Math.min(xp.length - 1, xpCurrent + 1))
+      else if (e.key === 'ArrowLeft' && xpCurrent > 0) openXp(xpCurrent - 1)
+    }
   })
   route(true)
 }
