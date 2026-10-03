@@ -6,8 +6,8 @@
     "ll": [1610, -3850],
     "side": "top",
     "gif": "gifs/lockin.gif",
-    "tagline": "A Chrome extension that tases you for slacking",
-    "summary": "You give it a blacklist of sites. Stay on one too long and it plays a taser sound until you leave.",
+    "tagline": "A Chrome extension that simulates tasing when you lock out",
+    "summary": "Stay on a blacklisted site too long and it redirects you to a taser sound.",
     "stack": ["JavaScript", "Chrome MV3"],
     "links": [
       { "label": "GitHub", "url": "https://github.com/Raynasty66/LockIN" }
@@ -20,7 +20,7 @@
     "ll": [1590, -2212],
     "side": "bottom",
     "gif": "gifs/reddit-post-meme-crawler.gif",
-    "tagline": "Every image in a Reddit thread, from one post ID",
+    "tagline": "Scrapes Reddit images to be used as slander photos",
     "summary": "A Devvit app that grabs every image in a Reddit post and its comments. It built the meme library the slander bot pulls from.",
     "stack": ["TypeScript", "Reddit Devvit"],
     "links": [
@@ -34,7 +34,7 @@
     "ll": [110, -190],
     "side": "bottom",
     "gif": "gifs/jjk-slander-bot.gif",
-    "tagline": "A Discord bot that turns you into a Jujutsu Kaisen meme",
+    "tagline": "A Discord bot that slanders you based on the words you say",
     "summary": "Say a trigger word like \"potential\" and it grabs a scraped Reddit meme of that character, finds the face with a YOLOv8 anime detector, checks it with a ViT classifier, and pastes your profile picture over it.",
     "stack": ["Python", "YOLOv8", "ViT", "Supabase", "Discord"],
     "links": [
@@ -62,7 +62,7 @@
     "ll": [2040, 3980],
     "side": "bottom",
     "gif": "gifs/ritopaint.mp4",
-    "tagline": "Draw on League replays and the ink stays on the ground",
+    "tagline": "Draw on League replays and the annotations move as your camera moves",
     "summary": "A transparent overlay that reads the camera pose from League's Replay API, so your arrows and circles stay pinned to the map as the camera pans.",
     "stack": ["Python", "Win32", "League Replay API"],
     "links": [
@@ -76,7 +76,7 @@
     "ll": [-6500, -510],
     "side": "bottom",
     "gif": "gifs/linkedindestroyer.mp4",
-    "tagline": "Charges up and fires at AI slop posts",
+    "tagline": "Fires hollow purple at AI slop LinkedIn posts",
     "summary": "A Chrome extension for LinkedIn. It charges up, fires at AI slop posts, and leaves a hole where they were.",
     "stack": ["JavaScript", "Web Animations API", "Chrome extension"],
     "links": [
@@ -91,8 +91,8 @@
     "ll": [-5518, -5541],
     "side": "bottom",
     "gif": "gifs/genshin-soundpact.mp4",
-    "tagline": "Yu-Peng Chen's Genshin music, mapped across Teyvat",
-    "summary": "Every region of Teyvat holds the tracks that play there. Zoom into a region, open a track, and play it side by side with the piece that inspired it, one in each ear.",
+    "tagline": "A map of Genshin's music over the years",
+    "summary": "Showcases special pieces of music, fun facts, and comparisons from every region, from Mondstadt to Nod-Krai.",
     "stack": ["React", "Leaflet", "Web Audio", "Cloudflare Workers"],
     "links": [
       { "label": "Site", "url": "https://genshin-soundpact.org" }

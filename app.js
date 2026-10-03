@@ -243,7 +243,7 @@ function focusOn(i) {
 // Smooth demos ship as silent looping MP4s, which behave like a GIF at a fraction of the size.
 function demoHtml(p) {
   if (!p.gif) return ''
-  if (p.gif.endsWith('.mp4')) return `<video class="card-gif" src="${esc(p.gif)}" autoplay loop muted playsinline aria-label="${esc(p.name)} in action"></video>`
+  if (p.gif.endsWith('.mp4')) return `<video class="card-gif" src="${esc(p.gif)}" autoplay loop muted playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" aria-label="${esc(p.name)} in action"></video>`
   return `<img class="card-gif" src="${esc(p.gif)}" alt="${esc(p.name)} in action">`
 }
 

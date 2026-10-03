@@ -485,8 +485,9 @@ button {
   color: var(--gi-parchment-dim);
 }
 
-/* The demo GIF, cut from the project's video */
+/* The demo, cut from the project's video; the loops take no pointer so the browser never offers its own video buttons */
 .card-gif {
+  pointer-events: none;
   display: block;
   width: 100%;
   height: auto;
