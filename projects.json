@@ -1,12 +1,11 @@
 [
   {
     "id": "lockin",
-    "video": "3zFZ_W8D9hY",
     "name": "LockIN",
     "date": "2026-05-11",
-    "place": "Mondstadt",
-    "ll": [1610, -3850],
+    "ll": [901, 1075],
     "side": "top",
+    "gif": "gifs/lockin.gif",
     "tagline": "A Chrome extension that tases you for slacking",
     "summary": "You give it a blacklist of sites. Stay on one too long and it plays a taser sound until you leave.",
     "stack": ["JavaScript", "Chrome MV3"],
@@ -15,45 +14,42 @@
     ]
   },
   {
-    "id": "jjk-slander-bot",
-    "video": "vqoq42iJ7oo",
-    "name": "JJK Slander Bot",
-    "date": "2026-06-14",
-    "place": "Dragonspine",
-    "ll": [1590, -2212],
-    "side": "bottom",
-    "tagline": "A Discord bot that turns you into a Jujutsu Kaisen meme",
-    "summary": "Say a trigger word like \"potential\" and it pulls a slander meme of that character, finds the face with a YOLOv8 anime detector, checks it with a ViT classifier, and pastes your profile picture over it.",
-    "stack": ["Python", "YOLOv8", "ViT", "Supabase", "Discord"],
-    "links": [
-      { "label": "GitHub", "url": "https://github.com/Raynasty66/jjk-slander-bot" }
-    ]
-  },
-  {
     "id": "reddit-post-meme-crawler",
-    "video": "vqoq42iJ7oo",
     "name": "Reddit Meme Crawler",
-    "date": "2026-06-15",
-    "place": "Liyue",
-    "ll": [110, -190],
-    "side": "bottom",
+    "date": "2026-06-14",
+    "ll": [1638, 768],
+    "side": "top",
+    "gif": "gifs/reddit-post-meme-crawler.gif",
     "tagline": "Every image in a Reddit thread, from one post ID",
-    "summary": "A Devvit app that grabs all the images in a post and its comments. It's where the slander bot gets its meme supply.",
+    "summary": "A Devvit app that grabs every image in a Reddit post and its comments. It built the meme library the slander bot pulls from.",
     "stack": ["TypeScript", "Reddit Devvit"],
     "links": [
       { "label": "GitHub", "url": "https://github.com/Raynasty66/reddit-post-meme-crawler" }
     ]
   },
   {
+    "id": "jjk-slander-bot",
+    "name": "JJK Slander Bot",
+    "date": "2026-06-14",
+    "ll": [2376, 1075],
+    "side": "bottom",
+    "gif": "gifs/jjk-slander-bot.gif",
+    "tagline": "A Discord bot that turns you into a Jujutsu Kaisen meme",
+    "summary": "Say a trigger word like \"potential\" and it grabs a scraped Reddit meme of that character, finds the face with a YOLOv8 anime detector, checks it with a ViT classifier, and pastes your profile picture over it.",
+    "stack": ["Python", "YOLOv8", "ViT", "Supabase", "Discord"],
+    "links": [
+      { "label": "GitHub", "url": "https://github.com/Raynasty66/jjk-slander-bot" }
+    ]
+  },
+  {
     "id": "mamboifier",
-    "video": "hj6Kg4xh_B8",
     "name": "MamboIfier",
     "date": "2026-07-26",
-    "place": "Inazuma",
-    "ll": [6456, 3355],
-    "side": "top",
-    "tagline": "Re-sings any song with two syllables",
-    "summary": "Record someone saying \"mambo mambo\" once. The pipeline chops it into syllables, then re-sings a whole song with them, matching the original vocal's pitch and timing before autotuning the result.",
+    "ll": [3400, 737],
+    "side": "bottom",
+    "gif": "gifs/mamboifier.gif",
+    "tagline": "Re-sings any song with a couple of funny syllables",
+    "summary": "Record a funny one or two syllable word, like \"mambo\", and it re-sings songs using only those syllables.",
     "stack": ["Python", "Audio DSP", "Pitch tracking"],
     "links": [
       { "label": "GitHub", "url": "https://github.com/Raynasty66/MamboIfier_Pipeline" }
@@ -61,12 +57,11 @@
   },
   {
     "id": "ritopaint",
-    "video": "MNPSYVdPsBc",
     "name": "RitoPaint",
     "date": "2026-08-12",
-    "place": "Watatsumi Island",
-    "ll": [2040, 3980],
+    "ll": [2744, 1751],
     "side": "bottom",
+    "gif": "gifs/ritopaint.gif",
     "tagline": "Draw on League replays and the ink stays on the ground",
     "summary": "A transparent overlay that reads the camera pose from League's Replay API, so your arrows and circles stay pinned to the map as the camera pans.",
     "stack": ["Python", "Win32", "League Replay API"],
@@ -76,14 +71,13 @@
   },
   {
     "id": "linkedindestroyer",
-    "video": "Px4MNTqn3nE",
     "name": "LinkedInDestroyer",
     "date": "2026-08-19",
-    "place": "Sumeru Desert",
-    "ll": [-6500, -510],
+    "ll": [1843, 1843],
     "side": "bottom",
-    "tagline": "Blows a hole through LinkedIn posts that mention AI",
-    "summary": "A Chrome extension that charges up, fires, and leaves a hole straight through any post that says AI, GPT, LLM or agentic. No server, nothing leaves your machine.",
+    "gif": "gifs/linkedindestroyer.gif",
+    "tagline": "Charges up and fires at AI slop posts",
+    "summary": "A Chrome extension for LinkedIn. It charges up, fires at AI slop posts, and leaves a hole where they were.",
     "stack": ["JavaScript", "Web Animations API", "Chrome extension"],
     "links": [
       { "label": "Chrome Web Store", "url": "https://chromewebstore.google.com/detail/linkedindestroyer/bpklejbmkddkagfhdknllkifineechjf" },
@@ -92,31 +86,16 @@
   },
   {
     "id": "genshin-soundpact",
-    "video": "nJ-LdhCzeiQ",
     "name": "Genshin Soundpact",
     "date": "2026-08-23",
-    "place": "Sumeru",
-    "ll": [-3213, -304],
-    "side": "top",
+    "ll": [942, 1935],
+    "side": "bottom",
+    "gif": "gifs/genshin-soundpact.gif",
     "tagline": "Yu-Peng Chen's Genshin music, mapped across Teyvat",
     "summary": "An interactive map of the regional soundtracks Yu-Peng Chen wrote, with the pieces that inspired them and side-by-side comparisons you can play, one track in each ear.",
     "stack": ["React", "Leaflet", "Web Audio", "Cloudflare Workers"],
     "links": [
       { "label": "Visit the site", "url": "https://genshin-soundpact.org" }
-    ]
-  },
-  {
-    "id": "flow-balance-hmi",
-    "name": "Flow Balance Bench HMI",
-    "date": "2026-09-18",
-    "place": "Fontaine",
-    "ll": [-5518, -5541],
-    "side": "bottom",
-    "tagline": "Operator screen for a multi-channel flow balancing bench",
-    "summary": "The operator screen for my Georgia Tech capstone with Donaldson, a test bench that balances flow across several channels. One self-contained HTML page.",
-    "stack": ["HTML", "CSS", "JavaScript"],
-    "links": [
-      { "label": "GitHub", "url": "https://github.com/Raynasty66/flow_rate_balancer_UI" }
     ]
   }
 ]

@@ -1,40 +1,20 @@
-// Projects charted on Teyvat, using the same Kongying Tavern tiles as Genshin Soundpact.
+// Projects charted on a hand-generated continent, in the Genshin Soundpact style.
 
-// Kongying's projection: latlng is the game coordinate, projected pixel = (lat + 3568, lng + 6969).
-const MAP_CENTER = [3568, 6969]
-const MAP_SIZE = [30370, 26624]
-const TILES_OFFSET = [-17408, -10240]
+// map.webp is 4096x3072; a latlng here is just [x, y] in its pixels, with zoom 0 drawing it 1:1.
+const MAP_W = 4096
+const MAP_H = 3072
 const FOCUS_ZOOM = -1.5
 const JOURNEY_MS = 11000
 const HOP_MS = 1100
-const TILE_RETRY_MS = 700
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 const CRS = L.Util.extend({}, L.CRS.Simple, {
   transformation: new L.Transformation(1, 0, 1, 0),
   projection: {
-    project: (ll) => new L.Point(ll.lat + MAP_CENTER[0], ll.lng + MAP_CENTER[1]),
-    unproject: (p) => new L.LatLng(p.x - MAP_CENTER[0], p.y - MAP_CENTER[1]),
+    project: (ll) => new L.Point(ll.lat, ll.lng),
+    unproject: (p) => new L.LatLng(p.x, p.y),
   },
-  bounds: L.bounds(L.point(0, 0), L.point(MAP_SIZE[0], MAP_SIZE[1])),
-})
-
-// Server z is leaflet zoom + 13; a refused tile gets one late retry so the overview never keeps a hole.
-const GiTiles = L.TileLayer.extend({
-  getTileUrl(c) {
-    return `https://assets.yuanshen.site/tiles_twt672/${c.z + 13}/${c.x}_${c.y}.png`
-  },
-  createTile(coords, done) {
-    const tile = L.TileLayer.prototype.createTile.call(this, coords, done)
-    let retried = false
-    tile.addEventListener('error', () => {
-      if (retried || !this._map) return
-      retried = true
-      const url = this.getTileUrl(coords)
-      setTimeout(() => { if (this._map) tile.src = url + '?r=1' }, TILE_RETRY_MS)
-    })
-    return tile
-  },
+  bounds: L.bounds(L.point(0, 0), L.point(MAP_W, MAP_H)),
 })
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -68,7 +48,6 @@ function markerHtml(p, i) {
       <span class="stop-text">
         <span class="stop-name">${esc(p.name)}</span>
         <span class="stop-date">${fmtDate(p.date)}</span>
-        <span class="stop-place">${esc(p.place)}</span>
       </span>
     </button>
   </div>`
@@ -77,42 +56,25 @@ function markerHtml(p, i) {
 function buildMap() {
   map = L.map('map', {
     crs: CRS,
-    minZoom: -6,
-    maxZoom: 2,
+    minZoom: -4,
+    maxZoom: 1.5,
     zoomSnap: 0.25,
     zoomControl: false,
     keyboard: false,
     wheelPxPerZoomLevel: 80,
   })
   map.attributionControl.setPrefix(false)
-  map.attributionControl.addAttribution(
-    'Map © <a href="https://yuanshen.site" target="_blank" rel="noopener noreferrer">Kongying Tavern</a> · Genshin Impact © HoYoverse',
-  )
   L.control.zoom({ position: 'bottomleft' }).addTo(map)
 
   overviewBounds = L.latLngBounds(stops.map((p) => p.ll))
   map.fitBounds(overviewBounds, overviewPadding())
 
-  const tileBounds = L.latLngBounds(
-    L.latLng(-MAP_CENTER[0] + TILES_OFFSET[0], -MAP_CENTER[1] + TILES_OFFSET[1]),
-    L.latLng(MAP_SIZE[0] - MAP_CENTER[0] + TILES_OFFSET[0], MAP_SIZE[1] - MAP_CENTER[1] + TILES_OFFSET[1]),
-  )
-  map.setMaxBounds(tileBounds.pad(0.05))
+  const mapBounds = L.latLngBounds([0, 0], [MAP_W, MAP_H])
+  map.setMaxBounds(mapBounds.pad(0.05))
   map.options.maxBoundsViscosity = 1.0
 
-  new GiTiles('', {
-    maxZoom: 2,
-    minZoom: -6,
-    maxNativeZoom: 0,
-    minNativeZoom: -3,
-    tileSize: 256,
-    noWrap: true,
-    // The CDN's coverage stops at projected x 12288.
-    bounds: L.latLngBounds(
-      L.latLng(-MAP_CENTER[0] + TILES_OFFSET[0], -MAP_CENTER[1] + TILES_OFFSET[1]),
-      L.latLng(12288 - MAP_CENTER[0], MAP_SIZE[1] - MAP_CENTER[1] + TILES_OFFSET[1]),
-    ),
-  }).addTo(map)
+  // One image rather than tiles: tiles left hairline seams at fractional zoom.
+  L.imageOverlay('map.webp', mapBounds, { className: 'map-image' }).addTo(map)
 
   L.polyline(stops.map((p) => p.ll), {
     className: 'gi-route',
@@ -129,7 +91,8 @@ function buildMap() {
       keyboard: false,
     }).addTo(map)
     p.el = p.marker.getElement()
-    p.el.querySelector('.stop-label').addEventListener('click', () => go(i))
+    // A drag that starts on a label carries the label along under the cursor, so its release isn't a click.
+    p.el.querySelector('.stop-label').addEventListener('click', () => { if (!map.dragging.moved()) go(i) })
   })
 
   map.createPane('journey')
@@ -139,7 +102,7 @@ function buildMap() {
     pane: 'journey',
     interactive: false,
     keyboard: false,
-    icon: L.divIcon({ className: 'journey-traveler', html: '<img class="jt-icon" src="traveler.png" alt="" draggable="false">', iconSize: [0, 0] }),
+    icon: L.divIcon({ className: 'journey-traveler', html: '<div class="jt-icon"><span class="wisp"></span></div>', iconSize: [0, 0] }),
   }).addTo(map)
 
   map.on('zoomend moveend', declutter)
@@ -168,7 +131,7 @@ function declutter() {
   }
 }
 
-// The sprite faces left, so it mirrors whenever it walks east.
+// The guide's trail streams behind it, so it flips to face the way it is heading.
 function face(from, to) {
   const img = traveler.getElement()?.querySelector('.jt-icon')
   if (img && to[0] !== from[0]) img.classList.toggle('jt-right', to[0] > from[0])
@@ -181,13 +144,13 @@ function pulse(i) {
   lbl.classList.add('journey-pulse')
 }
 
-// At a waypoint whose label hangs above it, the traveler steps aside so he isn't standing on the name.
+// At a waypoint whose label hangs above it, the guide drifts aside so it isn't sitting on the name.
 function rest(walking) {
   const img = traveler.getElement()?.querySelector('.jt-icon')
   img?.classList.toggle('jt-beside', !walking && stops[travelerAt].side === 'top')
 }
 
-// Walks the traveler through points at constant speed, pulsing each stop it reaches.
+// Walks the guide through points at constant speed, pulsing each stop it reaches.
 function walkPath(pts, idxs, totalMs) {
   if (walk) cancelAnimationFrame(walk.raf)
   travelerAt = idxs[idxs.length - 1]
@@ -252,12 +215,12 @@ function renderCard(i) {
   const card = document.getElementById('card')
   card.innerHTML = `
     <button class="card-close" type="button" aria-label="Close">✕</button>
-    <div class="card-kicker">${esc(p.place)} · Waypoint ${i + 1} of ${stops.length}</div>
+    <div class="card-kicker">Waypoint ${i + 1} of ${stops.length}</div>
     <h2 class="card-title">${esc(p.name)}</h2>
     <div class="card-date">${fmtDate(p.date)}</div>
     <p class="card-tagline">${esc(p.tagline)}</p>
     <p class="card-summary">${esc(p.summary)}</p>
-    ${p.video ? `<button class="card-video" type="button" aria-label="Play the demo video" style="background-image:url(https://i.ytimg.com/vi/${esc(p.video)}/mqdefault.jpg)"><span class="play">▶</span></button>` : ''}
+    ${p.gif ? `<img class="card-gif" src="${esc(p.gif)}" alt="${esc(p.name)} in action" width="480" height="270">` : ''}
     <ul class="card-stack">${p.stack.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>
     <div class="card-links">${p.links
       .map((l, k) => `<a class="pill${k === 0 ? ' pill-gold' : ''}" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)}</a>`)
@@ -266,16 +229,6 @@ function renderCard(i) {
       <button class="nav-prev" type="button" ${i === 0 ? 'disabled' : ''}>◀ ${i > 0 ? esc(stops[i - 1].name) : 'Start'}</button>
       <button class="nav-next" type="button" ${i === stops.length - 1 ? 'disabled' : ''}>${i < stops.length - 1 ? esc(stops[i + 1].name) : 'The end, for now'} ▶</button>
     </div>`
-  // The player only loads once asked for, so flicking through waypoints stays light.
-  card.querySelector('.card-video')?.addEventListener('click', (e) => {
-    const f = document.createElement('iframe')
-    f.className = 'card-video'
-    f.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(p.video)}?autoplay=1&rel=0`
-    f.title = `${p.name} demo`
-    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'
-    f.allowFullscreen = true
-    e.currentTarget.replaceWith(f)
-  })
   card.querySelector('.card-close').addEventListener('click', () => go(-1))
   card.querySelector('.nav-prev').addEventListener('click', () => go(i - 1))
   card.querySelector('.nav-next').addEventListener('click', () => go(i + 1))
@@ -311,6 +264,7 @@ function open(i) {
 
 // The hash is the source of truth, so back/forward and shared links land on the same stop.
 function go(i) {
+  if (i === current && i >= 0) return open(i)
   location.hash = i >= 0 && i < stops.length ? `#/${stops[i].id}` : '#/'
 }
 
@@ -327,9 +281,33 @@ function route(first) {
   } else if (current >= 0) {
     closeCard()
     map.flyToBounds(overviewBounds, { ...overviewPadding(), duration: reduceMotion ? 0 : 0.8 })
-  } else if (first) {
+  } else if (first && !introOpen()) {
     journey()
   }
+}
+
+// The about popup opens by itself on a first visit, and the journey waits until it closes.
+const ABOUT_KEY = 'seen-about'
+const introOpen = () => !document.getElementById('about').hidden
+
+function openAbout() {
+  document.getElementById('about').hidden = false
+  document.getElementById('about-go').focus()
+}
+
+function closeAbout() {
+  const firstClose = !storeGet(ABOUT_KEY)
+  storeSet(ABOUT_KEY, '1')
+  document.getElementById('about').hidden = true
+  if (firstClose && current < 0) journey()
+}
+
+function storeGet(k) {
+  try { return localStorage.getItem(k) } catch { return null }
+}
+
+function storeSet(k, v) {
+  try { localStorage.setItem(k, v) } catch {}
 }
 
 function buildLog() {
@@ -341,7 +319,7 @@ function buildLog() {
           <span class="log-name">${esc(p.name)}</span>
           <span class="log-tagline">${esc(p.tagline)}</span>
         </span>
-        <span class="log-meta">${fmtDate(p.date)}<br>${esc(p.place)}</span>
+        <span class="log-meta">${fmtDate(p.date)}</span>
       </button>
     </li>`)
     .join('')
@@ -358,14 +336,15 @@ async function main() {
   stops = (await res.json()).sort((a, b) => a.date.localeCompare(b.date))
   buildMap()
   buildLog()
-  document.getElementById('tour').addEventListener('click', () => go(current >= 0 ? current : 0))
-  document.getElementById('replay').addEventListener('click', () => {
-    if (current >= 0) go(-1)
-    journey()
-  })
+  document.getElementById('about-open').addEventListener('click', openAbout)
+  document.getElementById('about-close').addEventListener('click', closeAbout)
+  document.getElementById('about-go').addEventListener('click', closeAbout)
+  document.getElementById('about').addEventListener('click', (e) => { if (e.target.id === 'about') closeAbout() })
+  if (!storeGet(ABOUT_KEY) && !location.hash.replace(/^#\/?/, '')) openAbout()
   window.addEventListener('hashchange', () => route(false))
   document.addEventListener('keydown', (e) => {
     if (e.target.closest('input, textarea')) return
+    if (introOpen()) { if (e.key === 'Escape') closeAbout(); return }
     if (e.key === 'Escape' && current >= 0) go(-1)
     else if (e.key === 'ArrowRight') go(Math.min(stops.length - 1, current + 1))
     else if (e.key === 'ArrowLeft' && current > 0) go(current - 1)

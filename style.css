@@ -3,7 +3,7 @@
   --text: #e8e6e1;
   --text-dim: #9aa3ad;
   --gold: #d3bc8e;
-  /* Genshin UI tokens, the same ones Genshin Soundpact measured off the official interactive map */
+  /* Genshin UI tokens, the same ones Genshin Soundpact uses */
   --gi-panel: #3b4354;
   --gi-panel-dark: #323947;
   --gi-elevated: #4a5366;
@@ -88,9 +88,22 @@ button {
   text-decoration: none;
 }
 
-.site-header nav a:hover {
+.site-header nav a:hover,
+.site-header nav .nav-about:hover {
   color: var(--gi-gold-bright);
   opacity: 1;
+}
+
+.site-header nav .nav-about {
+  padding: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: none;
+  border: 0;
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 .tagline {
@@ -330,15 +343,7 @@ button {
   opacity: 0.9;
 }
 
-.stop-place {
-  font-size: 0.68rem;
-  line-height: 1.4;
-  color: var(--text);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-  opacity: 0.7;
-}
-
-/* One-shot flash when the traveler reaches a waypoint */
+/* One-shot flash when the guide reaches a waypoint */
 .stop-label.journey-pulse .stop-num {
   animation: journeyPulse 0.6s ease;
 }
@@ -360,7 +365,7 @@ button {
   }
 }
 
-/* The traveler, the same chibi as Genshin Soundpact's journey */
+/* The guide: a gold wisp with a trail, drifting between waypoints */
 .journey-traveler {
   pointer-events: none;
 }
@@ -368,19 +373,15 @@ button {
 .jt-icon {
   position: absolute;
   left: -22px;
-  top: -40px;
+  top: -44px;
   width: 44px;
   height: 44px;
-  object-fit: contain;
-  transform-origin: 50% 85%;
-  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.6)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-  user-select: none;
   transition: left 0.3s ease, top 0.3s ease;
-  animation: hop 0.5s ease-in-out infinite alternate;
+  animation: hop 1.1s ease-in-out infinite alternate;
 }
 
 .jt-icon.jt-beside {
-  left: -56px;
+  left: -58px;
   top: -30px;
 }
 
@@ -388,9 +389,55 @@ button {
   scale: -1 1;
 }
 
+.wisp {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 42% 40%, #fff 0 22%, var(--gi-gold-bright) 46%, rgba(211, 188, 142, 0) 74%);
+  box-shadow: 0 0 14px 6px rgba(244, 216, 168, 0.55), 0 0 36px 14px rgba(140, 232, 226, 0.22);
+}
+
+/* The trail streams out behind, which is to the right until the guide flips to head east */
+.wisp::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 5px;
+  width: 30px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(244, 216, 168, 0.6), transparent);
+  filter: blur(1px);
+}
+
+.wisp::after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: -7px;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  rotate: 45deg;
+  border-radius: 1px;
+  box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.7);
+  animation: twinkle 1.6s ease-in-out infinite;
+}
+
 @keyframes hop {
   to {
-    translate: 0 -3px;
+    translate: 0 -5px;
+  }
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.2;
+    scale: 0.5;
   }
 }
 
@@ -487,43 +534,17 @@ button {
   color: var(--gi-parchment-dim);
 }
 
-/* Demo video: the thumbnail stands in until it's clicked */
-.card-video {
+/* The demo GIF, cut from the project's video */
+.card-gif {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
   margin: 0 0 0.9rem;
-  padding: 0;
+  object-fit: cover;
+  background: var(--gi-panel-dark);
   border: 1px solid var(--gi-hairline);
   border-radius: 8px;
-  background: var(--gi-panel-dark) center / cover no-repeat;
-  cursor: pointer;
-}
-
-button.card-video {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-video .play {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  padding-left: 0.2rem;
-  font-size: 1.1rem;
-  color: var(--gi-ink);
-  background: var(--gold);
-  border-radius: 999px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-  transition: transform 0.15s ease, background 0.15s ease;
-}
-
-button.card-video:hover .play {
-  transform: scale(1.08);
-  background: var(--gi-gold-bright);
 }
 
 .card-stack {
@@ -613,17 +634,10 @@ button.card-video:hover .play {
   background: var(--gi-gold-bright);
 }
 
-.map-controls {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin: 1rem 0 0;
-}
-
 /* Adventure log, the same stops as a dated list */
 .log {
-  margin-top: 2.5rem;
+  margin: 2.5rem 0 3rem;
+  margin-bottom: calc(3rem + env(safe-area-inset-bottom));
 }
 
 .log h2 {
@@ -728,30 +742,138 @@ button.card-video:hover .play {
   color: var(--gi-parchment-dim);
 }
 
-.site-footer {
-  margin: 2.5rem 0 1.5rem;
-  margin-bottom: calc(1.5rem + env(safe-area-inset-bottom));
-  padding: 0.9rem 1.1rem;
-  font-size: 0.8rem;
-  color: var(--gi-parchment-dim);
+/* About popup: the same slate panel as the quest card, over a dimmed page */
+.intro-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100dvh;
+  padding: 5vh 1rem;
+  padding-bottom: calc(5vh + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  background: rgba(18, 25, 33, 0.72);
+  backdrop-filter: blur(3px);
+  animation: modal-fade 0.22s ease;
+}
+
+.intro-modal[hidden] {
+  display: none;
+}
+
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.intro-card {
+  position: relative;
+  width: min(620px, 100%);
+  padding: 1.5rem 1.6rem 1.4rem;
+  color: var(--gi-parchment);
+  background: var(--gi-panel);
+  border: 1px solid var(--gi-hairline);
+  border-radius: 12px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.35), 0 18px 60px rgba(0, 0, 0, 0.5);
+  animation: card-pop 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.15);
+}
+
+.intro-card h2 {
+  margin: 0 2.4rem 0.6rem 0;
+  font-family: var(--gi-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+}
+
+.intro-card > p {
+  margin: 0 0 1.2rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.intro-card a {
+  color: var(--gold);
+}
+
+.intro-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0 0 0.7rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+.intro-card h3::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(211, 188, 142, 0.4), transparent);
+}
+
+.xp {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0 0 1.2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.xp li {
+  padding: 0.65rem 0.85rem 0.7rem;
   background: var(--gi-panel-dark);
   border: 1px solid var(--gi-hairline);
+  border-left: 3px solid var(--gold);
   border-radius: 8px;
 }
 
-.site-footer p {
-  margin: 0;
+.xp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 0.75rem;
 }
 
-.site-footer a {
+.xp-head strong {
+  font-family: var(--gi-serif);
+  font-size: 0.98rem;
+  font-weight: 600;
   color: var(--gold);
+}
+
+.xp-head span {
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gi-parchment-dim);
+}
+
+.xp-role {
+  font-size: 0.82rem;
+  color: var(--gi-gold-bright);
+  opacity: 0.85;
+}
+
+.xp li p {
+  margin: 0.25rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--gi-parchment-dim);
 }
 
 /* Phones: labels shrink, and the card drops below the map instead of covering it */
 @media (max-width: 760px) {
   .gi-map {
-    height: 62vh;
-    min-height: 380px;
+    height: min(62vh, 96vw);
+    min-height: 320px;
   }
 
   .stop-label {
@@ -768,10 +890,6 @@ button.card-video:hover .play {
     height: 1.9rem;
   }
 
-  .stop-place {
-    display: none;
-  }
-
   .quest-card {
     position: static;
     width: auto;
@@ -786,6 +904,9 @@ button.card-video:hover .play {
 
 @media (prefers-reduced-motion: reduce) {
   .jt-icon,
+  .wisp::after,
+  .intro-modal,
+  .intro-card,
   .quest-card.card-in,
   .stop-label.journey-pulse .stop-num,
   .stop-label.journey-pulse .stop-name {

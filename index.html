@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Raymond He Yang · Projects</title>
-    <meta name="description" content="Raymond He Yang's projects, in the order he built them, charted across Teyvat." />
+    <title>Raymond Yang Portfolio</title>
+    <meta name="description" content="Raymond Yang's projects, in the order he built them, charted on a map." />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
     <link rel="stylesheet" href="style.css" />
@@ -12,18 +12,18 @@
   <body>
     <div class="app">
       <header class="site-header">
-        <a class="site-title" href="#/">Raymond <span>He Yang</span></a>
+        <a class="site-title" href="#/">Raymond Yang <span>Portfolio</span></a>
         <nav>
+          <button class="nav-about" id="about-open" type="button">About me</button>
           <a href="https://github.com/Raynasty66" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://genshin-soundpact.org" target="_blank" rel="noopener noreferrer">Genshin Soundpact</a>
+          <a href="https://www.linkedin.com/in/raymond-h-yang/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://www.youtube.com/@CouldYouShouldYou" target="_blank" rel="noopener noreferrer">YouTube</a>
         </nav>
       </header>
 
       <main>
         <p class="tagline">
-          Everything I've built, in the order I built it. Follow the traveler from
-          <strong>Mondstadt</strong> to <strong>Fontaine</strong>, or click any waypoint to read about it.
-          Drag to pan, scroll to zoom, arrow keys step through.
+          Everything I've built, in the order I built it. Click a waypoint to see it in action.
         </p>
 
         <div class="map-wrap">
@@ -31,23 +31,54 @@
           <aside class="quest-card" id="card" hidden aria-live="polite"></aside>
         </div>
 
-        <div class="map-controls">
-          <button class="pill pill-gold" id="tour" type="button">▶ Start the tour</button>
-          <button class="pill" id="replay" type="button">Replay the journey</button>
-        </div>
-
         <section class="log">
           <h2>Adventure log</h2>
           <ol id="log"></ol>
         </section>
       </main>
+    </div>
 
-      <footer class="site-footer">
+    <div class="intro-modal" id="about" hidden>
+      <div class="intro-card" role="dialog" aria-modal="true" aria-labelledby="about-title">
+        <button class="card-close" id="about-close" type="button" aria-label="Close">✕</button>
+        <h2 id="about-title">Hi, I'm Raymond</h2>
         <p>
-          Map © <a href="https://yuanshen.site" target="_blank" rel="noopener noreferrer">Kongying Tavern</a>
-          (CC BY-NC-SA) · Genshin Impact © HoYoverse. A fan-made, non-commercial page.
+          I study Biomedical Engineering and Computer Science (B.S./M.S.) at Georgia Tech. At work I build ML
+          pipelines and research software. On the side I make dumb, fun projects and film them for my
+          <a href="https://www.youtube.com/@CouldYouShouldYou" target="_blank" rel="noopener noreferrer">YouTube channel</a>.
         </p>
-      </footer>
+
+        <h3>Experience</h3>
+        <ul class="xp">
+          <li>
+            <div class="xp-head"><strong>Regeneron Pharmaceuticals</strong><span>Jan – Jun 2026</span></div>
+            <div class="xp-role">Bioinformatics / Software Developer Co-op</div>
+            <p>Built an MCP-backed agent that routes scientists' questions to the right Databricks Genie space and runs the SQL against live data. Used by 50+ scientists.</p>
+          </li>
+          <li>
+            <div class="xp-head"><strong>Emory Deep Learning for Digital Pathology Lab</strong><span>Jul 2024 – Present</span></div>
+            <div class="xp-role">Undergraduate Research Assistant</div>
+            <p>Built a Kafka and FastAPI pipeline that segments 2GB+ slide images in under 5 minutes each, and U-Net models that automate kidney tissue annotation.</p>
+          </li>
+          <li>
+            <div class="xp-head"><strong>Flowers Invention Studio, Georgia Tech</strong><span>Mar 2025 – Present</span></div>
+            <div class="xp-role">Prototyping Instructor</div>
+            <p>Co-manage the largest student-run makerspace in the US and train students on waterjet, laser cutting, 3D printing and machining.</p>
+          </li>
+          <li>
+            <div class="xp-head"><strong>Nakatani RIES Fellowship, Tokyo</strong><span>May – Aug 2025</span></div>
+            <div class="xp-role">Research Intern</div>
+            <p>Hooked a real-time flow cytometer up to a Chi.Bio bioreactor for continuous monitoring of a cell culture.</p>
+          </li>
+          <li>
+            <div class="xp-head"><strong>Maker Venture GT Shenzhen</strong><span>Jun – Aug 2024</span></div>
+            <div class="xp-role">Engineering Intern</div>
+            <p>Designed and prototyped an Arduino-controlled stair-climbing mechanism for cleaning robots.</p>
+          </li>
+        </ul>
+
+        <button class="pill pill-gold" id="about-go" type="button">See my projects</button>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
