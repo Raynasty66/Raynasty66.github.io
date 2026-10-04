@@ -7,7 +7,7 @@
     "side": "bottom",
     "gif": "gifs/road-to-empress.mp4",
     "tagline": "Chinese Bilibili comments on Ludwig's Road to Empress, translated side by side",
-    "summary": "Thousands of Bilibili comments and danmaku from Chinese viewers of Ludwig's motorcycle trip across China, shown next to English translations with notes on the slang, memes and cultural references.",
+    "summary": "I built it by adapting a Bilibili comment translator into its own site for Ludwig's motorcycle trip across China: thousands of comments and danmaku from Chinese viewers, shown next to English translations with notes on the slang, memes and cultural references.",
     "stack": ["Next.js", "React", "Cloudflare Workers", "Playwright"],
     "links": [{ "label": "Site", "url": "https://road2empress.com" }]
   },
