@@ -183,10 +183,10 @@ function pulse(i) {
   lbl.classList.add('journey-pulse')
 }
 
-// At a waypoint whose label hangs above it, Aether steps aside so he isn't standing on the name.
+// Once he arrives, Aether steps to the side so the waypoint's diamond and name stay visible.
 function rest(walking) {
   const img = traveler.getElement()?.querySelector('.jt-icon')
-  img?.classList.toggle('jt-beside', !walking && stops[travelerAt].side === 'top')
+  img?.classList.toggle('jt-beside', !walking)
 }
 
 // Walks Aether to a waypoint at constant speed, then he stands still there.
