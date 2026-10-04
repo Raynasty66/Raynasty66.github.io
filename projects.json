@@ -1,5 +1,17 @@
 [
   {
+    "id": "road-to-empress",
+    "name": "Road to Empress Comments",
+    "date": "2026-04-22",
+    "ll": [-3213, -304],
+    "side": "bottom",
+    "gif": "gifs/road-to-empress.mp4",
+    "tagline": "Chinese Bilibili comments on Ludwig's Road to Empress, translated side by side",
+    "summary": "Thousands of Bilibili comments and danmaku from Chinese viewers of Ludwig's motorcycle trip across China, shown next to English translations with notes on the slang, memes and cultural references.",
+    "stack": ["Next.js", "React", "Cloudflare Workers", "Playwright"],
+    "links": [{ "label": "Site", "url": "https://road2empress.com" }]
+  },
+  {
     "id": "lockin",
     "name": "LockIN",
     "date": "2026-05-11",
