@@ -408,7 +408,7 @@ function buildLog() {
     .join('')
   document.querySelectorAll('#log button').forEach((b) => {
     b.addEventListener('click', () => {
-      document.querySelector('.map-wrap').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
+      document.getElementById('map').parentElement.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
       go(+b.dataset.i)
     })
   })
