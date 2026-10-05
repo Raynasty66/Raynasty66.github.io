@@ -120,7 +120,7 @@
     "side": "bottom",
     "gif": "gifs/skateboard.mp4",
     "tagline": "Ride an electric skateboard by moving your hand. Still in progress.",
-    "summary": "July: a glove with an ESP32 and gyroscope that turns hand gestures into throttle over ESP-NOW, wired into the board's stock remote, first ridden in a parking lot. September: v2 packs the electronics into a fastener-free 3D-printed case and a cleaner glove. Still being refined.",
+    "summary": "v1: an ESP32 sends the signal to the controller to control the skateboard's speed. v2: adjusted to a single glove for portability.",
     "stack": ["C++", "ESP32", "MPU-6050", "ESP-NOW", "3D printing"],
     "links": [],
     "wip": true
