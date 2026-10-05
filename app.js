@@ -40,6 +40,10 @@ const APP_SRC = document.currentScript?.src
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 
+function fmtWhen(p) {
+  return p.wip ? `${fmtDate(p.date)} – In progress` : fmtDate(p.date)
+}
+
 function fmtDate(iso) {
   const [y, m] = iso.split('-')
   return `${MONTHS[+m - 1]} ${y}`
@@ -63,11 +67,11 @@ function markerHtml(p, i) {
   const side = p.side === 'top' ? ' above' : ''
   return `<div class="gi-marker">
     <div class="marker-glow"></div>
-    <button class="stop-label${side}" type="button" data-i="${i}" aria-label="${esc(p.name)}, ${fmtDate(p.date)}">
+    <button class="stop-label${side}" type="button" data-i="${i}" aria-label="${esc(p.name)}, ${fmtWhen(p)}">
       <span class="stop-num">${i + 1}</span>
       <span class="stop-text">
         <span class="stop-name">${esc(p.name)}</span>
-        <span class="stop-date">${fmtDate(p.date)}</span>
+        <span class="stop-date">${fmtWhen(p)}</span>
       </span>
     </button>
   </div>`
@@ -257,7 +261,7 @@ function renderCard(i) {
     <button class="card-close" type="button" aria-label="Close">✕</button>
     <div class="card-kicker">Waypoint ${i + 1} of ${stops.length}</div>
     <h2 class="card-title">${esc(p.name)}</h2>
-    <div class="card-date">${fmtDate(p.date)}</div>
+    <div class="card-date">${fmtWhen(p)}</div>
     <p class="card-tagline">${esc(p.tagline)}</p>
     <p class="card-summary">${esc(p.summary)}</p>
     ${demoHtml(p)}
@@ -387,7 +391,7 @@ function storeSet(k, v) {
 function buildPopupProjects() {
   document.getElementById('pop-proj').innerHTML = stops
     .map((p) => `<li>
-      <div class="xp-head"><strong>${esc(p.name)}</strong><span>${fmtDate(p.date)}</span></div>
+      <div class="xp-head"><strong>${esc(p.name)}</strong><span>${fmtWhen(p)}</span></div>
       <p>${esc(p.tagline)}</p>
     </li>`)
     .join('')
@@ -402,7 +406,7 @@ function buildLog() {
           <span class="log-name">${esc(p.name)}</span>
           <span class="log-tagline">${esc(p.tagline)}</span>
         </span>
-        <span class="log-meta">${fmtDate(p.date)}</span>
+        <span class="log-meta">${fmtWhen(p)}</span>
       </button>
     </li>`)
     .join('')
@@ -418,7 +422,8 @@ async function main() {
   // The page asks for the data that matches its own script version, so a cached page never meets newer data.
   const v = new URL(APP_SRC || 'app.js', location.href).searchParams.get('v') || ''
   const res = await fetch(`projects.json?v=${v}`, { cache: 'no-cache' })
-  stops = (await res.json()).sort((a, b) => a.date.localeCompare(b.date))
+  // Finished projects run in date order; anything still in progress goes at the end of the road.
+  stops = (await res.json()).sort((a, b) => Number(!!a.wip) - Number(!!b.wip) || a.date.localeCompare(b.date))
   buildMap()
   buildLog()
   buildPopupProjects()

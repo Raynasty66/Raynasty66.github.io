@@ -56,23 +56,11 @@
     ]
   },
   {
-    "id": "gesture-skateboard",
-    "name": "Gesture-Controlled Skateboard",
-    "date": "2026-07-04",
-    "ll": [6456, 3355],
-    "side": "top",
-    "gif": "gifs/skateboard.mp4",
-    "tagline": "Ride an electric skateboard by moving your hand",
-    "summary": "A wearable ESP32 and gyroscope glove turns hand gestures into throttle commands sent over ESP-NOW, tapped into the board's stock remote. The electronics ride in a fastener-free 3D-printed case.",
-    "stack": ["C++", "ESP32", "MPU-6050", "ESP-NOW", "3D printing"],
-    "links": []
-  },
-  {
     "id": "mamboifier",
     "name": "MamboIfier",
     "date": "2026-07-26",
-    "ll": [2040, 3980],
-    "side": "bottom",
+    "ll": [6456, 3355],
+    "side": "top",
     "gif": "gifs/mamboifier.mp4",
     "tagline": "Re-sings any song with a couple of funny syllables",
     "summary": "Record a funny one or two syllable word, like \"mambo\", and it re-sings songs using only those syllables.",
@@ -85,7 +73,7 @@
     "id": "ritopaint",
     "name": "RitoPaint",
     "date": "2026-08-12",
-    "ll": [-1781, 45],
+    "ll": [2040, 3980],
     "side": "bottom",
     "gif": "gifs/ritopaint.mp4",
     "tagline": "Draw on League replays and the annotations move as your camera moves",
@@ -99,7 +87,7 @@
     "id": "linkedindestroyer",
     "name": "LinkedInDestroyer",
     "date": "2026-08-19",
-    "ll": [-3213, -304],
+    "ll": [-1781, 45],
     "side": "bottom",
     "gif": "gifs/linkedindestroyer.mp4",
     "tagline": "Fires hollow purple at AI slop LinkedIn posts",
@@ -114,7 +102,7 @@
     "id": "genshin-soundpact",
     "name": "Genshin Soundpact",
     "date": "2026-08-23",
-    "ll": [-6500, 300],
+    "ll": [-3213, -304],
     "side": "bottom",
     "gif": "gifs/genshin-soundpact.mp4",
     "tagline": "A map of Genshin's music over the years",
@@ -123,5 +111,18 @@
     "links": [
       { "label": "Site", "url": "https://genshin-soundpact.org" }
     ]
+  },
+  {
+    "id": "gesture-skateboard",
+    "name": "Gesture-Controlled Skateboard",
+    "date": "2026-07-02",
+    "ll": [-6500, 300],
+    "side": "bottom",
+    "gif": "gifs/skateboard.mp4",
+    "tagline": "Ride an electric skateboard by moving your hand. Still in progress.",
+    "summary": "July: a glove with an ESP32 and gyroscope that turns hand gestures into throttle over ESP-NOW, wired into the board's stock remote, first ridden in a parking lot. September: v2 packs the electronics into a fastener-free 3D-printed case and a cleaner glove. Still being refined.",
+    "stack": ["C++", "ESP32", "MPU-6050", "ESP-NOW", "3D printing"],
+    "links": [],
+    "wip": true
   }
 ]

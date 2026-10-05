@@ -33,7 +33,7 @@ Everything on the page comes from `projects.json`. Add an entry and push:
 }
 ```
 
-- `date` sets the order of the route; the list is sorted for you.
+- `date` sets the order of the route; the list is sorted for you. Add `"wip": true` to a project still in progress: it always goes last and shows "In progress".
 - `ll` is a Teyvat game coordinate. Projects follow Genshin Soundpact's region
   route in date order: Mondstadt `[1610, -3850]`, Liyue `[110, -190]`, Dragonspine
   `[1590, -2212]`, Golden Apple Archipelago `[4150, 620]`, Inazuma `[6456, 3355]`,
