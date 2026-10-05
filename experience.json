@@ -54,8 +54,7 @@
         "skills": ["Waterjet", "Laser cutting", "3D printing", "Machining"],
         "links": [{ "label": "Invention Studio", "url": "https://inventionstudio.gatech.edu/" }],
         "images": [
-          { "src": "xp/flowers-hub.webp", "caption": "The Invention Studio hub", "credit": "Photo: Invention Studio @ Georgia Tech" },
-          { "src": "xp/flowers-kerf.webp", "caption": "A member-built kerf-bending cabinet", "credit": "Photo: Invention Studio @ Georgia Tech" }
+          { "src": "xp/flowers-hub.webp", "caption": "The Invention Studio hub", "credit": "Photo: Invention Studio @ Georgia Tech" }
         ]
       }
     ]
