@@ -263,7 +263,7 @@ function renderCard(i) {
     <h2 class="card-title">${esc(p.name)}</h2>
     <div class="card-date">${fmtWhen(p)}</div>
     <p class="card-tagline">${esc(p.tagline)}</p>
-    <p class="card-summary">${esc(p.summary)}</p>
+    ${p.points ? `<ul class="xp-points">${p.points.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : `<p class="card-summary">${esc(p.summary)}</p>`}
     ${demoHtml(p)}
     <ul class="card-stack">${p.stack.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>
     ${p.links.length ? `<div class="card-links">${p.links

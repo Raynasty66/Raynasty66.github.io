@@ -120,7 +120,7 @@
     "side": "bottom",
     "gif": "gifs/skateboard.mp4",
     "tagline": "Ride an electric skateboard by moving your hand. Still in progress.",
-    "summary": "v1: an ESP32 sends the signal to the controller to control the skateboard's speed. v2: adjusted to a single glove for portability.",
+    "points": ["v1: an ESP32 sends the signal to the controller to control the skateboard's speed.", "v2: adjusted to a single glove for portability."],
     "stack": ["C++", "ESP32", "MPU-6050", "ESP-NOW", "3D printing"],
     "links": [],
     "wip": true
