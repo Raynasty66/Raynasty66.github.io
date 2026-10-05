@@ -23,7 +23,7 @@ Everything on the page comes from `projects.json`. Add an entry and push:
   "id": "my-project",
   "name": "My Project",
   "date": "2026-10-03",
-  "ll": [-6500, 300],
+  "ll": [-5518, -5541],
   "side": "bottom",
   "gif": "gifs/my-project.gif",
   "tagline": "One line that shows on the map card",
@@ -37,8 +37,8 @@ Everything on the page comes from `projects.json`. Add an entry and push:
 - `ll` is a Teyvat game coordinate. Projects follow Genshin Soundpact's region
   route in date order: Mondstadt `[1610, -3850]`, Liyue `[110, -190]`, Dragonspine
   `[1590, -2212]`, Golden Apple Archipelago `[4150, 620]`, Inazuma `[6456, 3355]`,
-  Enkanomiya `[2040, 3980]`, The Chasm `[-1781, 45]`, Sumeru `[-3213, -304]`. The next
-  project goes to Veluriyam Mirage `[-6500, 300]`, then Fontaine `[-5518, -5541]`.
+  Enkanomiya `[2040, 3980]`, The Chasm `[-1781, 45]`, Sumeru `[-3213, -304]`, Veluriyam Mirage `[-6500, 300]`. The next
+  project goes to Fontaine `[-5518, -5541]`, then Chenyu Vale `[-2070, -3834]`.
 - `side` hangs the label `top` or `bottom` of its waypoint. Labels that would
   collide fold down to their numbered diamond and open on hover.
 - The first link is drawn as the gold button.

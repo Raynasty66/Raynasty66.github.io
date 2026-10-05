@@ -262,9 +262,9 @@ function renderCard(i) {
     <p class="card-summary">${esc(p.summary)}</p>
     ${demoHtml(p)}
     <ul class="card-stack">${p.stack.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>
-    <div class="card-links">${p.links
+    ${p.links.length ? `<div class="card-links">${p.links
       .map((l, k) => `<a class="pill${k === 0 ? ' pill-gold' : ''}" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)}</a>`)
-      .join('')}</div>
+      .join('')}</div>` : ''}
     <div class="card-nav">
       <button class="nav-prev" type="button" ${i === 0 ? 'disabled' : ''}>◀ ${i > 0 ? esc(stops[i - 1].name) : 'Start'}</button>
       <button class="nav-next" type="button" ${i === stops.length - 1 ? 'disabled' : ''}>${i < stops.length - 1 ? esc(stops[i + 1].name) : 'The end, for now'} ▶</button>
