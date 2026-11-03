@@ -41,7 +41,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 
 function fmtWhen(p) {
-  return p.wip ? `${fmtDate(p.date)} – In progress` : fmtDate(p.date)
+  if (p.wip) return `${fmtDate(p.date)} – In progress`
+  return p.end ? `${fmtDate(p.date)} – ${fmtDate(p.end)}` : fmtDate(p.date)
 }
 
 function fmtDate(iso) {
@@ -422,8 +423,8 @@ async function main() {
   // The page asks for the data that matches its own script version, so a cached page never meets newer data.
   const v = new URL(APP_SRC || 'app.js', location.href).searchParams.get('v') || ''
   const res = await fetch(`projects.json?v=${v}`, { cache: 'no-cache' })
-  // Finished projects run in date order; anything still in progress goes at the end of the road.
-  stops = (await res.json()).sort((a, b) => Number(!!a.wip) - Number(!!b.wip) || a.date.localeCompare(b.date))
+  // Finished projects run in order of completion; anything still in progress goes at the end of the road.
+  stops = (await res.json()).sort((a, b) => Number(!!a.wip) - Number(!!b.wip) || (a.end || a.date).localeCompare(b.end || b.date))
   buildMap()
   buildLog()
   buildPopupProjects()
