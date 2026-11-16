@@ -128,14 +128,14 @@
     },
   {
     "id": "play-of-the-game",
-    "name": "Play of the Game for League",
+    "name": "POTG for League",
     "date": "2026-10-30",
     "ll": [-5518, -5541],
     "side": "bottom",
     "gif": "gifs/play-of-the-game.mp4",
     "tagline": "Finds the best play in your League games and replays it with an intro",
     "summary": "A tab inside the League client that lists your recent games. Pick one and it reads the replay, scores every kill, steal and objective, renders a 3D intro of your champion in your skin, then plays the top moment in the replay with the camera on you.",
-    "stack": ["C++", "Win32", "League Replay API", "LCU API", "Pengu Loader", "Blender"],
+    "stack": ["C++", "Win32", "League Replay API", "LCU API", "Blender"],
     "links": []
   }
 ]
