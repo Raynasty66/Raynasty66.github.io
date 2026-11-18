@@ -77,7 +77,7 @@
     "side": "bottom",
     "gif": "gifs/linkedindestroyer.mp4",
     "tagline": "Fires hollow purple at AI slop LinkedIn posts",
-    "summary": "A Chrome extension for LinkedIn. It charges up, fires at AI slop posts, and leaves a hole where they were.",
+    "summary": "A Chrome extension for LinkedIn. It charges up and fires at AI slop posts, a funnier way to filter them out.",
     "stack": ["JavaScript", "Web Animations API", "Chrome extension"],
     "links": [
       { "label": "Chrome Web Store", "url": "https://chromewebstore.google.com/detail/linkedindestroyer/bpklejbmkddkagfhdknllkifineechjf" },
